@@ -33,7 +33,7 @@
 			this.selectedColorAlpha = selectedColorAlpha;
 			
 			head = new GirdLayout(1,DefaultStyle.noPaddingGird);
-			out = new GirdLayout(2,DefaultStyle.gird);
+			out = new GirdLayout(2,DefaultStyle.girdCenter);
 			colorFarm = new Sprite();
 			
             colorWell=new ColorWell();
@@ -92,7 +92,7 @@
 			addEventListener(MouseEvent.MOUSE_DOWN, fieldMouseDown);
 			colorAlpha.addEventListener(Event.CHANGE, alphaChange);
 			colorTxt.addEventListener(FocusEvent.FOCUS_OUT, colorInput);
-            
+            colorFocusRect.visible = false;
             this.filters=[new DropShadowFilter(4,45,0,0.5)];
         }
         //all the following three methord is for hide this when mouse down elsewhere,maybe there is better solutions
@@ -111,6 +111,7 @@
 			{
 				colorTxt.text = formatColor(e.target.color);
 				colorWell.drawColor(e.target.color, selectedColorAlpha);
+				colorFocusRect.visible = true;
 				colorFocusRect.x = e.target.x;
 				colorFocusRect.y = e.target.y;
 			}
@@ -120,7 +121,8 @@
 			if (e.target is ColorField)
 			{
 				colorTxt.text = formatColor(selectedColor);
-				colorWell.drawColor(selectedColor,selectedColorAlpha);
+				colorWell.drawColor(selectedColor, selectedColorAlpha);
+				colorFocusRect.visible = false;
 			}
 		}
 		function fieldMouseDown(e:MouseEvent)

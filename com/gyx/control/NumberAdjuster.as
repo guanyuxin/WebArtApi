@@ -12,14 +12,16 @@
 	{
 		public var value:int;
 		var background:Sprite;
-		var dragging:Boolean;
 		var textShow:TextField;
-		var mouseDownValue;
+		var mouseDownValue:int;
 		var minValue:int;
 		var maxValue:int;
-		var inputing:Boolean = false;
-		var oneClick:Boolean;
-		var newMouse:MouseFollower;
+		const STATUS_NORMAL = 0;
+		const STATUS_BEFORE_ADJUSTING = 1;
+		const STATUS_ADJUSTING = 2;
+		const STATUS_INPUTING = 3;
+		var status:int = TYPE_NORMAL;
+		var hover:Boolean = false;
 		public function NumberAdjuster(labelStr:String,value:int=0,minValue:int=0,maxValue:int=100)
 		{
 			super(labelStr);
@@ -172,7 +174,6 @@
 				if (e.target != textShow || ! oneClick)//finish adjust
 				{
 					stage.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
-					stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 					dispatchEvent(new NumberAdjusterEvent(NumberAdjusterEvent.ADJUST_OVER));
 				}
 				else//cilck,start input
@@ -181,30 +182,26 @@
 					textShow.selectable = true;
 					textShow.type = TextFieldType.INPUT;
 					inputing = true;
-					stage.removeEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
 				}
+				stage.removeEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
+				stage.removeEventListener(MouseEvent.MOUSE_UP,mouseUp);
 			}
 			e.stopPropagation();
 		}
 		function mouseOver(e:Event)
 		{
+			hover = true;
 			if (! inputing)
 			{
 				MouseFollower.setFollower(MouseFollower.VERTICAL_DOUBLE_POINTER);
-				draw(2);
 			}
+			draw();
 		}
 		function mouseOut(e:Event)
 		{
-			if (inputing)
-			{
-				draw(1);
-			}
-			else
-			{
-				draw(0);
-			}
-			if (! dragging)
+			hover = false;
+			draw();
+			if ()
 			{
 				MouseFollower.setFollower(MouseFollower.NONE);
 			}

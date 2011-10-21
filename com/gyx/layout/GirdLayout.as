@@ -85,7 +85,10 @@
 				getChildAt(i).x = currentX;
 				getChildAt(i).y = currentY;
 				if (getChildAt(i) is BaseComponent)
-					(getChildAt(i) as BaseComponent).x += colunmLabelWidth[currentColumn] - (getChildAt(i) as BaseComponent).lableWidth;
+					getChildAt(i).x += colunmLabelWidth[currentColumn] - (getChildAt(i) as BaseComponent).lableWidth;
+				else if (style.getStyleString("alien") == "center") {
+					getChildAt(i).x += (columnWidth[currentColumn] - getChildAt(i).width) / 2;
+				}
 				getChildAt(i).y += Math.round((rowHeight[currentRow]-getChildAt(i).height)/2);
 				if (currentRow != rowCount-1)
 					currentY += style.getStyleInt("break") + rowHeight[currentRow];

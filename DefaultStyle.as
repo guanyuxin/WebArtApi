@@ -18,13 +18,17 @@ package
 		
 		public static var girdLayout:BaseStyle = new BaseStyle(common);
 		common.setStyle("borderWidth", "none");
+		common.setStyle("alien", "left")
 		
 		public static var noPaddingGird:BaseStyle = new BaseStyle(girdLayout);
-		noPaddingGird.setStyle("break", 6);
+		noPaddingGird.setStyle("break", 4);
 		
 		public static var gird:BaseStyle = new BaseStyle(girdLayout);
 		gird.setStyle("break", 2);
 		gird.setStyle("padding", 2);
+		
+		public static var girdCenter:BaseStyle = new BaseStyle(gird);
+		girdCenter.setStyle("alien", "center");
 		
 		public static var tabPage:BaseStyle = new BaseStyle(common);
 		tabPage.setStyle("tabWidth", 50);
