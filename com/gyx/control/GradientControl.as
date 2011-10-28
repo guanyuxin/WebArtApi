@@ -39,7 +39,7 @@
 				sliders.push(new Slider(ratioArray[i],colorArray[i],w,h,i<2,this));
 				addChild(sliders[i]);
 			}
-			colorPicker = new ColorSelector("当前色");
+			colorPicker = new ColorSelector({label:"当前色"});
 			colorPicker.x = w + 20;
 			addChild(colorPicker);
 			colorPicker.enabled = false;

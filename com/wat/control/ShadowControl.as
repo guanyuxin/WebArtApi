@@ -32,51 +32,51 @@
 			layoutLeft = new GirdLayout(2,DefaultStyle.noPaddingGird);
 			layoutRight = new GirdLayout(2,DefaultStyle.noPaddingGird);
 			layoutOut = new GirdLayout(1,DefaultStyle.gird);
-			
-			enable=new CheckBox("启用");
+
+			enable=new CheckBox({label:"启用"});
 			layoutLeft.addChild(enable);
 
-			quality=new ComboBox("质量",["低","中","高"],3,0,30);
-			argEditers.push(quality);
+			quality=new ComboBox({label:"质量",data:["低","中","高"],tileWidth:30});
 			layoutLeft.addChild(quality);
+			argEditers.push(quality);
 
-			inner=new CheckBox("内阴影");
-			argEditers.push(inner);
+			inner=new CheckBox({label:"内阴影"});
 			layoutLeft.addChild(inner);
+			argEditers.push(inner);
 
-			knockout=new CheckBox("挖空");
-			argEditers.push(knockout);
+			knockout=new CheckBox({label:"挖空"});
 			layoutLeft.addChild(knockout);
+			argEditers.push(knockout);
 
-			blurY = new NumberAdjuster("模糊Y",20,0,100);
-			argEditers.push(blurY);
+			blurY = new NumberAdjuster({label:"模糊Y",value:20});
 			layoutLeft.addChild(blurY);
+			argEditers.push(blurY);
 
-			blurX = new NumberAdjuster("模糊X",20,0,100);
-			argEditers.push(blurX);
+			blurX = new NumberAdjuster({label:"模糊X",value:20});
 			layoutLeft.addChild(blurX);
+			argEditers.push(blurX);
 			
-			layoutOut.addChild(layoutLeft)
-			
-			blurChain=new LinkButton();
+			layoutOut.addChild(layoutLeft);
+
+			blurChain=new LinkButton({});
+			layoutOut.addChild(blurChain);
 			argEditers.push(blurChain);
-			layoutOut.addChild(blurChain)
 
-			distance = new NumberAdjuster("距离",20,0,100);
-			argEditers.push(distance);
+			distance = new NumberAdjuster({label:"距离",value:20});
 			layoutRight.addChild(distance);
+			argEditers.push(distance);
 
-			angle = new NumberAdjuster("角度",45,0,360);
-			argEditers.push(angle);
+			angle = new NumberAdjuster({label:"角度",value:45,maxValue:360});
 			layoutRight.addChild(angle);
-
-			strangth = new NumberAdjuster("强度",10,0,100);
-			argEditers.push(strangth);
-			layoutRight.addChild(strangth);
-
-			shadowColor=new ColorSelector("阴影色");
-			argEditers.push(shadowColor);
+			argEditers.push(angle);
+			
+			shadowColor=new ColorSelector({label:"阴影色"});
 			layoutRight.addChild(shadowColor);
+			argEditers.push(shadowColor);
+			
+			strangth = new NumberAdjuster({label:"强度",value:10});
+			layoutRight.addChild(strangth);
+			argEditers.push(strangth);
 			
 			layoutOut.addChild(layoutRight);
 			

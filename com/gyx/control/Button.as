@@ -13,13 +13,12 @@
 		var w=20;
 		var h=20;
 		var rect:Sprite;
-		var hover:Boolean = false;
 		public var selected:Boolean = false;
-		var _enabled:Boolean = true;
-		public function Button(labelStr:String) 
+		public function Button(option:Object) 
 		{
-			super(labelStr);
-			
+			super(option);
+			option.enabled ||= true;
+			option.selected ||= false;
 			rect = new Sprite();
 			addChild(rect);
 			
@@ -27,25 +26,22 @@
 			label.y = (h - label.height) / 2;
 			addChild(label);
 			
-			enabled = true;
+			selected = option.selected;
+			enabled = option.enabled;
 		}
-		public function set enabled(arg)
+		public function set enabled(val)
 		{
-			if (arg)
+			if (val == _enabled)
+				return;
+			setEnabled(val);
+			if (val)
 			{
-				_enabled = true;
 				rect.addEventListener(MouseEvent.CLICK, mouseClick);
-				rect.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				rect.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 			else
 			{
-				_enabled = false;
 				rect.removeEventListener(MouseEvent.CLICK, mouseClick);
-				rect.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				rect.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
-			enableChange(_enabled);
 			draw();
 		}
 		function mouseClick(e:Event)
@@ -54,17 +50,7 @@
 			draw();
 			dispatchEvent(new Event(Event.CHANGE));
 		}
-		function mouseOver(e:Event)
-		{
-			hover = true;
-			draw();
-		}
-		function mouseOut(e:Event)
-		{
-			hover = false;
-			draw();
-		}
-		public function draw()
+		public override function draw()
 		{
 			var g:Graphics = rect.graphics;
 			g.clear();

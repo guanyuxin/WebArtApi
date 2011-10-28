@@ -11,47 +11,43 @@
 	public class NumberAdjuster extends BaseComponent
 	{
 		public var value:int;
-		var background:Sprite;
 		var textShow:TextField;
 		var mouseDownValue:int;
 		var minValue:int;
 		var maxValue:int;
-		const STATUS_NORMAL = 0;
-		const STATUS_BEFORE_ADJUSTING = 1;
-		const STATUS_ADJUSTING = 2;
-		const STATUS_INPUTING = 3;
-		var status:int = TYPE_NORMAL;
-		var hover:Boolean = false;
-		public function NumberAdjuster(labelStr:String,value:int=0,minValue:int=0,maxValue:int=100)
+		static const STATUS_NORMAL = 0;
+		static const STATUS_BEFORE_ADJUSTING = 1;
+		static const STATUS_ADJUSTING = 2;
+		static const STATUS_INPUTING = 3;
+		var dragging:Boolean=false;
+		var status:int = STATUS_NORMAL;
+		public function NumberAdjuster(option:Object)
 		{
-			super(labelStr);
-			value = Math.max(value, minValue);
-			value = Math.min(value, maxValue);
-			this.minValue = minValue;
-			this.maxValue = maxValue;
+			super(option);
+			option.value ||= 0;
+			option.minValue ||= 0;
+			option.maxValue ||= 100;
 			
-			background = new Sprite();
-			addChild(background);
-			
+			value = Math.max(option.value, option.minValue);
+			value = Math.min(option.value, option.maxValue);
+			this.minValue = option.minValue;
+			this.maxValue = option.maxValue;
+						
 			textShow=new TextField();
 			textShow.restrict = "0-9";
 			textShow.multiline = false;
 			textShow.selectable = false;
 			textShow.text = "0";
-			textShow.height = textShow.textHeight + 4;
+			textShow.height = 20;
 			textShow.width = 23;
-			addChild(textShow);
-
+			textShow.border = true;
+			textShow.background = true;
+			
+			comp.addChild(textShow);
+			componentFinish();
 			textShow.addEventListener(Event.CHANGE, change);
-
 			enabled = true;
-			if (label)
-			{
-				textShow.x = label.width;
-				background.x = label.width;
-				label.y = (background.height - label.height) / 2;
-			}
-			setValue(value);
+			setValue(option.value);
 		}
 		public function setValue(v:int)
 		{
@@ -64,30 +60,54 @@
 			dispatchEvent(new Event(Event.CHANGE));
 		}
 		//enable
-		public function set enabled(value:Boolean)
+		public function set enabled(val:Boolean)
 		{
-			enableChange(value);
-			if (value)
+			if (_enabled == val)
+				return;
+			setEnabled(val);
+			if (val)
 			{
 				textShow.addEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
-				textShow.addEventListener(MouseEvent.MOUSE_OUT,mouseOut);
-				textShow.addEventListener(MouseEvent.MOUSE_OVER,mouseOver);
-				draw(0);
 			}
 			else
 			{
 				textShow.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
-				textShow.removeEventListener(MouseEvent.MOUSE_OUT,mouseOut);
-				textShow.removeEventListener(MouseEvent.MOUSE_OVER,mouseOver);
-				draw(3);
+			}
+			draw();
+		}
+
+		function change(e:Event)
+		{
+			var v:int = parseInt(textShow.text);
+			setValue(v);
+			e.stopPropagation();
+		}
+		public override function draw()
+		{
+			if (!_enabled) {
+				textShow.textColor = style.getStyleUint("labelColor-disabled");
+				textShow.borderColor = style.getStyleUint("borderColor-disabled");
+				textShow.backgroundColor = style.getStyleUint("backgroundColor-disabled");
+			}
+			else {
+				textShow.textColor = style.getStyleUint("labelColor");
+				textShow.borderColor = style.getStyleUint("borderColor");;
+				if (this.status == NumberAdjuster.STATUS_INPUTING) {
+					textShow.backgroundColor = style.getStyleUint("backgroundColor-selected");
+				}
+				else{
+					textShow.backgroundColor = style.getStyleUint("backgroundColor");
+				}
+				graphics.clear();
+				if (hover)
+				{
+					graphics.lineStyle(style.getStyleInt("hoverboderWidth"),style.getStyleUint("hoverboderColor"));
+					graphics.drawRect( textShow.x-1, textShow.y-1, textShow.width + 2, textShow.height + 2);
+				}
 			}
 		}
 		function mouseMove(e:Event)
 		{
-			if (inputing)
-			{
-				return;
-			}
 			var disp = 0;
 			if (mouseY<0)
 			{
@@ -101,110 +121,67 @@
 			var newValue = mouseDownValue + disp;
 			if (newValue!=value)
 			{
-				oneClick = false;
+				status=NumberAdjuster.STATUS_ADJUSTING;
 				setValue(newValue);
 			}
 		}
-		function change(e:Event)
-		{
-			var v:int = parseInt(textShow.text);
-			setValue(v);
-			e.stopPropagation();
-		}
-		function draw(type:int)
-		{
-			var g:Graphics = background.graphics;
-			g.clear();
-			if (type==0)
-			{
-				textShow.textColor = 0x000000;
-				g.lineStyle(1,0x555555);
-				g.beginFill(0xdddddd,0.8);
-			}
-			else if (type==1)
-			{
-				textShow.textColor = 0x000000;
-				g.lineStyle(1,0x000000);
-				g.beginFill(0xffffff,0.8);
-			}
-			else if (type==2)
-			{
-				textShow.textColor = 0x000000;
-				g.lineStyle(1,0x44aaff);
-				g.beginFill(0xdddddd,0.8);
-			}
-			else if (type==3)
-			{
-				textShow.textColor = 0x666666;
-				g.lineStyle(1,0x666666);
-				g.beginFill(0xe2e2e2,0.8);
-			}
-			g.lineTo(textShow.width,0);
-			g.lineTo(textShow.width,textShow.height);
-			g.lineTo(0,textShow.height);
-			g.lineTo(0,0);
-		}
 		function mouseDown(e:Event)
 		{
-			if (inputing)
-			{
-				if (e.target != textShow)
+			if (status == NumberAdjuster.STATUS_NORMAL) {
+				dragging = true;
+				status = NumberAdjuster.STATUS_BEFORE_ADJUSTING;
+				mouseDownValue = value;
+				stage.addEventListener(MouseEvent.MOUSE_UP,mouseUp);
+				stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+			}
+		}
+		function mouseDownOut(e:MouseEvent) {
+			if (hover==false)
 				{
-					draw(0);
+					draw();
 					textShow.selectable = false;
 					textShow.type = TextFieldType.DYNAMIC;
 					textShow.setSelection(0,0);
-					stage.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
-					inputing = false;
+					stage.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDownOut);
+					status = NumberAdjuster.STATUS_NORMAL;
+					draw()
 				}
-				return;
-			}
-			dragging = true;
-			oneClick = true;
-			mouseDownValue = value;
-			stage.addEventListener(MouseEvent.MOUSE_UP,mouseUp);
-			stage.addEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
 		}
 		function mouseUp(e:Event)
 		{
-			if (!inputing)
+			dragging = false;
+			MouseFollower.setFollower(MouseFollower.NONE);
+			if (status==NumberAdjuster.STATUS_ADJUSTING)//finish adjust
 			{
-				dragging = false;
-				MouseFollower.setFollower(MouseFollower.NONE);
-				if (e.target != textShow || ! oneClick)//finish adjust
-				{
-					stage.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
-					dispatchEvent(new NumberAdjusterEvent(NumberAdjusterEvent.ADJUST_OVER));
-				}
-				else//cilck,start input
-				{
-					draw(1);
-					textShow.selectable = true;
-					textShow.type = TextFieldType.INPUT;
-					inputing = true;
-				}
-				stage.removeEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
-				stage.removeEventListener(MouseEvent.MOUSE_UP,mouseUp);
+				dispatchEvent(new NumberAdjusterEvent(NumberAdjusterEvent.ADJUST_OVER));
+				status = NumberAdjuster.STATUS_NORMAL;
 			}
-			e.stopPropagation();
+			else//cilck,start input
+			{
+				textShow.selectable = true;
+				textShow.type = TextFieldType.INPUT;
+				status = NumberAdjuster.STATUS_INPUTING;
+				stage.addEventListener(MouseEvent.MOUSE_DOWN,mouseDownOut)
+			}
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
+			draw();
 		}
-		function mouseOver(e:Event)
+		protected override function mouseOver(e:MouseEvent)
 		{
-			hover = true;
-			if (! inputing)
+			if (status!=NumberAdjuster.STATUS_INPUTING)
 			{
 				MouseFollower.setFollower(MouseFollower.VERTICAL_DOUBLE_POINTER);
 			}
-			draw();
+			super.mouseOver(e);
 		}
-		function mouseOut(e:Event)
+		protected override function mouseOut(e:MouseEvent)
 		{
-			hover = false;
-			draw();
-			if ()
+			if (status!=NumberAdjuster.STATUS_INPUTING && dragging==false)
 			{
 				MouseFollower.setFollower(MouseFollower.NONE);
 			}
+			super.mouseOut(e);
 		}
 	}
 

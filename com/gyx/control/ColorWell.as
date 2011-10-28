@@ -1,14 +1,16 @@
 ﻿package com.gyx.control
 {
+	import com.gyx.sytle.BaseStyle;
     import flash.display.Sprite;
     class ColorWell extends Sprite
     {
         var colorLayer:Sprite;
+		var style:BaseStyle;
         static var w:int=30;
         static var h:int=20;
-        public function ColorWell()
+        public function ColorWell(style=null)
         {
-            
+            this.style = style || DefaultStyle.common;
             graphics.beginFill(0xffffff);
 			graphics.drawRect(0,0,ColorWell.w,ColorWell.h);
             graphics.endFill();

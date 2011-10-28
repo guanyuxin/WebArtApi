@@ -32,48 +32,47 @@ package com.wat.control
 			layoutRight = new GirdLayout(2,DefaultStyle.noPaddingGird);
 			layoutOut = new GirdLayout(1,DefaultStyle.gird);
 			
-			enable=new CheckBox("启用");
+			enable=new CheckBox({label:"启用"});
 			layoutLeft.addChild(enable);
 
-			quality=new ComboBox("质量",["低","中","高"],3,0,30);
+			quality=new ComboBox({label:"质量",data:["低","中","高"],tileWidth:30});
 			layoutLeft.addChild(quality);
 			argEditers.push(quality);
 
-			inner=new CheckBox("内发光");
+			inner=new CheckBox({label:"内阴影"});
 			layoutLeft.addChild(inner);
 			argEditers.push(inner);
 
-			knockout=new CheckBox("挖空");
+			knockout=new CheckBox({label:"挖空"});
 			layoutLeft.addChild(knockout);
 			argEditers.push(knockout);
 
-			blurY = new NumberAdjuster("模糊Y",20,0,100);
+			blurY = new NumberAdjuster({label:"模糊Y",value:20});
 			layoutLeft.addChild(blurY);
 			argEditers.push(blurY);
 
-			blurX = new NumberAdjuster("模糊X",20,0,100);
+			blurX = new NumberAdjuster({label:"模糊X",value:20});
 			layoutLeft.addChild(blurX);
 			argEditers.push(blurX);
 			
-			layoutOut.addChild(layoutLeft)
-			
-			blurChain=new LinkButton();
+			layoutOut.addChild(layoutLeft);
+
+			blurChain=new LinkButton({});
+			layoutOut.addChild(blurChain);
 			argEditers.push(blurChain);
 			
-			layoutOut.addChild(blurChain)
-
-			strangth = new NumberAdjuster("强度",10,0,100);
-			layoutRight.addChild(strangth);
-			argEditers.push(strangth);
-
-			shadowColor=new ColorSelector("发光色",0xff0000);
+			shadowColor=new ColorSelector({label:"发光色"});
 			layoutRight.addChild(shadowColor);
 			argEditers.push(shadowColor);
 			
-			layoutOut.addChild(layoutRight)
+			strangth = new NumberAdjuster({label:"强度",value:10});
+			layoutRight.addChild(strangth);
+			argEditers.push(strangth);
+			
+			layoutOut.addChild(layoutRight);
 			
 			layoutOut.render();
-			addChild(layoutOut);
+			addChild(layoutOut)
 			
 			for (i=0; i<argEditers.length; i++)
 			{

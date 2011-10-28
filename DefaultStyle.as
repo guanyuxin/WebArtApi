@@ -11,7 +11,6 @@ package
 		common.setStyle("controlColor", 0xdddddd);
 		common.setStyle("borderWidth", 1);
 		common.setStyle("borderColor", 0x000000);
-		common.setStyle("borderColor-disable", 0x666666);
 		common.setStyle("padding", 0);
 		common.setStyle("margin", 0);
 		common.setStyle("textFormat", new TextFormat());
@@ -40,10 +39,12 @@ package
 		
 		public static var componet:BaseStyle = new BaseStyle(common);
 		componet.setStyle("labelColor", 0x000000);
-		componet.setStyle("backgroundColor", 0xaaaaaa)
-		componet.setStyle("backgroundColor-selected", 0xcccccc);
+		componet.setStyle("backgroundColor", 0xbbbbbb);
+		componet.setStyle("backgroundColor-disabled", 0xcccccc);
+		componet.setStyle("backgroundColor-selected", 0xcdddddd);
+		componet.setStyle("borderColor-disabled", 0x666666);
 		componet.setStyle("borderColor-selected", 0xffee66);
-		componet.setStyle("labelColor-disable", 0x666666);
+		componet.setStyle("labelColor-disabled", 0x666666);
 		componet.setStyle("hoverboderColor", 0x44aaff);
 		componet.setStyle("hoverboderWidth", 1);
 	}

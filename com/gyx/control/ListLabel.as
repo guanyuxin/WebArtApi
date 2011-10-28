@@ -14,18 +14,22 @@
 		public var w:int=80;
 		public var h:int=20;
 		public var selected:Boolean=false;
-		public function ListLabel(id:int,previewOrStr,w:int=80)
+		public function ListLabel(option:Object)
 		{
-			this.id = id;
-			this.w = w;
-			if(previewOrStr is Function){
-				this.preview = previewOrStr;
+			option.id ||= 0;
+			option.tileWidth ||= 80;
+			option.data ||= [];
+			id = option.id;
+			w = option.tileWidth;
+			data = option.data;
+			if(option.render){
+				preview = option.render;
 			}else {
-				this.data = previewOrStr;
-				this.preview = defaultPreview;
+				preview = defaultRender;
 			}
 			back = new Sprite();
-			front=new Sprite();
+			front = new Sprite();
+
 			reDraw(id);
 			addChild(back);
 			addChild(front);
@@ -48,7 +52,7 @@
 
 			addChild(front);
 		}
-		public function defaultPreview(id:int,target:ListLabel)
+		public function defaultRender(id:int,target:ListLabel)
 		{
 			var label:Label = new Label(data[id]);
 			label.x=(w-label.width)/2;

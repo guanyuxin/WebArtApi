@@ -17,21 +17,20 @@
         public var selectedIndex:int;
 		var dataCount:int;
 		var colorTransform:ColorTransform = new ColorTransform();
-		public function ComboBox(labelStr,dataOrPreview,dataCount,selectedIndex=0,tileWidth=80)
+		public function ComboBox(option)
 		{
-			super(labelStr);
-			this.dataCount = dataCount;
-			this.tileWidth = tileWidth;
-          	demo=new ListLabel(0,dataOrPreview,tileWidth);
-            addChild(demo);
-			selectById(selectedIndex);
-            list=new List(dataOrPreview,dataCount,tileWidth);
+			super(option);
+			option.selectedIndex ||= 0;
+			option.tileWidth ||= 80;
+			this.tileWidth = option.tileWidth;
+			
+          	demo=new ListLabel(option);
+            comp.addChild(demo);
+			componentFinish();
+			
+			selectById(option.selectedIndex);
+            list=new List(option);
 			enabled=true;
-			if (label)
-			{
-				demo.x = label.width;
-				label.y = (demo.height - label.height) / 2;
-			}
 			
 			list.addEventListener(Event.CHANGE, changeSelected);
 		}
@@ -60,12 +59,14 @@
             list.parent.removeChild(list);
             stage.removeEventListener(MouseEvent.MOUSE_DOWN,testClose);
         }
-		function mouseOver(e:MouseEvent)
+		protected override function mouseOver(e:MouseEvent)
 		{
+			super.mouseOver(e);
 			MouseFollower.setFollower(MouseFollower.DOWN_ARROW);
 		}
-		function mouseOut(e:MouseEvent)
+		protected override function mouseOut(e:MouseEvent)
 		{
+			super.mouseOut(e)
 			MouseFollower.setFollower(MouseFollower.NONE);
 		}
         public function selectById(argId)
@@ -74,18 +75,18 @@
             demo.reDraw(argId);
             dispatchEvent(new Event(Event.CHANGE));
         }
-        public function set enabled(arg)
+        public function set enabled(val:Boolean)
         {
-			enableChange(arg);
-            if(arg)
+			if (val == _enabled)
+				return;
+			setEnabled(val);
+            if(val)
             {
                 mouseChildren=true;
                 tabChildren = true;
 				colorTransform = new ColorTransform();
                 demo.drawBack(0);
                 demo.addEventListener(MouseEvent.MOUSE_DOWN,openList);
-                demo.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-                demo.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
             }
             else
             {
@@ -94,8 +95,6 @@
 				colorTransform.color = 0x666666;
                 demo.drawBack(2);
                 demo.removeEventListener(MouseEvent.MOUSE_DOWN,openList);
-                demo.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-                demo.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
             }
 			demo.front.transform.colorTransform=colorTransform;
         }

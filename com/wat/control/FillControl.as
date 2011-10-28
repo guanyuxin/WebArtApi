@@ -1,76 +1,75 @@
 ﻿package com.wat.control
 {
-	import com.gyx.control.ListLabel;
-	import com.wat.ArtText;
-	import com.gyx.control.GradientControl;
-	import com.gyx.control.NumberAdjuster;
+	import com.gyx.control.Button;
 	import com.gyx.control.ColorSelector;
 	import com.gyx.control.ComboBox;
-	import com.gyx.control.Button;
-	import flash.display.Sprite;
-	import flash.text.TextField;
-	import flash.events.Event;
-	import flash.text.TextFormat;
+	import com.gyx.control.GradientControl;
+	import com.gyx.control.ListLabel;
+	import com.gyx.control.NumberAdjuster;
 	import com.gyx.layout.GirdLayout;
+	import com.wat.ArtText;
 	import DefaultStyle;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class FillControl extends Sprite
 	{
 		var gradientControl:GradientControl;
 		var simpleColorPicker:ColorSelector;
-		var typeSelect:ComboBox,textFont:ComboBox;
+		var typeSelect:ComboBox, textFont:ComboBox;
 		var target:ArtText;
-		var textSize:NumberAdjuster,textSpacing:NumberAdjuster;
+		var textSize:NumberAdjuster, textSpacing:NumberAdjuster;
 		var renderText:Function;
-		var italic:Button,bold:Button;
-		var fontData:Array = [{label:"宋体",data:"SimSun"},{label:"黑体",data:"SimHei"},{label:"华文细黑",data:"STXihei"},{label:"楷体",data:"KaiTi"},{label:"隶书",data:"LiSu"},{label:"华文行楷",data:"STXingkai"},{label:"幼圆",data:"YouYuan"},{label:"方正舒体",data:"FZShuTi"},{label:"方正姚体",data:"FZYaoti"},{label:"华文琥珀",data:"STHupo"},{label:"华文彩云",data:"STCaiyun"},{label:"Arial",data:"Arial"},{label:"Comic Sans MS",data:"Comic Sans MS"},{label:"Georgia",data:"Georgia"},{label:"Impact",data:"Impact"},{label:"Verdana",data:"Verdana"},{label:"Time News Roman",data:"Time News Roman"},{label:"Courier New",data:"Courier New"},{label:"Hei",data:"Hei"},{label:"Monaco",data:"Monaco"},{label:"simhei",data:"simhei"}];
-		var argEditers:Array=[];
-		var layoutUp:GirdLayout,layoutDown:GirdLayout,layoutOut:GirdLayout;
-		public function FillControl(target:ArtText,renderText:Function)
+		var italic:Button, bold:Button;
+		var fontData:Array = [{label: "宋体", data: "SimSun"}, {label: "黑体", data: "SimHei"}, {label: "华文细黑", data: "STXihei"}, {label: "楷体", data: "KaiTi"}, {label: "隶书", data: "LiSu"}, {label: "华文行楷", data: "STXingkai"}, {label: "幼圆", data: "YouYuan"}, {label: "方正舒体", data: "FZShuTi"}, {label: "方正姚体", data: "FZYaoti"}, {label: "华文琥珀", data: "STHupo"}, {label: "华文彩云", data: "STCaiyun"}, {label: "Arial", data: "Arial"}, {label: "Comic Sans MS", data: "Comic Sans MS"}, {label: "Georgia", data: "Georgia"}, {label: "Impact", data: "Impact"}, {label: "Verdana", data: "Verdana"}, {label: "Time News Roman", data: "Time News Roman"}, {label: "Courier New", data: "Courier New"}, {label: "Hei", data: "Hei"}, {label: "Monaco", data: "Monaco"}, {label: "simhei", data: "simhei"}];
+		var argEditers:Array = [];
+		var layoutUp:GirdLayout, layoutDown:GirdLayout, layoutOut:GirdLayout;
+		
+		public function FillControl(target:ArtText, renderText:Function)
 		{
 			this.target = target;
 			this.renderText = renderText;
 			
-			layoutUp = new GirdLayout(1,DefaultStyle.noPaddingGird);
-			layoutDown = new GirdLayout(1,DefaultStyle.noPaddingGird);
-			layoutOut = new GirdLayout(2,DefaultStyle.gird);
+			layoutUp = new GirdLayout(1, DefaultStyle.noPaddingGird);
+			layoutDown = new GirdLayout(1, DefaultStyle.noPaddingGird);
+			layoutOut = new GirdLayout(2, DefaultStyle.gird);
 			
-			typeSelect=new ComboBox("填充方式",["单色填充","渐变填充"],2,0,55);
+			typeSelect = new ComboBox({label:"填充方式",data:["单色填充", "渐变填充"],tileWidth:100});
 			layoutUp.addChild(typeSelect);
 			argEditers.push(typeSelect);
 			
-			textFont=new ComboBox("字体",createFontPreview,fontData.length,0,100);
+			textFont = new ComboBox({label:"字体", render:createFontPreview, data:fontData,tileWidth:100});
 			layoutDown.addChild(textFont);
 			argEditers.push(textFont);
 			
-			italic=new Button("I");
+			italic = new Button({label:"I"});
 			layoutDown.addChild(italic);
 			argEditers.push(italic);
 			
-			bold=new Button("B");
+			bold = new Button({label:"B"});
 			layoutDown.addChild(bold);
 			argEditers.push(bold);
 			
-			textSize = new NumberAdjuster("字号",32);
+			textSize = new NumberAdjuster({label:"字号", value:20,minValue:12});
 			layoutDown.addChild(textSize);
 			argEditers.push(textSize);
 			
-			textSpacing = new NumberAdjuster("间距",0,0,20);
+			textSpacing = new NumberAdjuster({label:"间距",maxValue:20});
 			layoutDown.addChild(textSpacing);
 			argEditers.push(textSpacing);
 			
-			gradientControl = new GradientControl(target.fillGradientColor,target.fillGradientRatios);
+			gradientControl = new GradientControl(target.fillGradientColor, target.fillGradientRatios);
 			layoutUp.addChild(gradientControl);
 			argEditers.push(gradientControl);
 			
-			simpleColorPicker=new ColorSelector("填充色");
+			simpleColorPicker = new ColorSelector({label:"填充色"});
 			layoutUp.addChild(simpleColorPicker);
 			argEditers.push(simpleColorPicker);
 			
 			layoutOut.addChild(layoutUp);
 			layoutOut.addChild(layoutDown);
-			
-			
 			
 			textSize.value = target.size;
 			textSpacing.value = target.spacing;
@@ -88,7 +87,7 @@
 				simpleColorPicker.visible = false;
 				gradientControl.visible = true;
 			}
-			for (var i=0; i<fontData.length; i++)
+			for (var i = 0; i < fontData.length; i++)
 			{
 				if (fontData[i].data == target.font)
 				{
@@ -99,11 +98,12 @@
 			
 			layoutOut.render();
 			addChild(layoutOut);
-			for (i=0; i<argEditers.length; i++)
+			for (i = 0; i < argEditers.length; i++)
 			{
-				argEditers[i].addEventListener(Event.CHANGE,changeHandler);
+				argEditers[i].addEventListener(Event.CHANGE, changeHandler);
 			}
 		}
+		
 		function changeHandler(e:Event)
 		{
 			if (e.target == typeSelect)
@@ -132,9 +132,10 @@
 			
 			renderText();
 		}
-		function createFontPreview(i:int,s:ListLabel)
+		
+		function createFontPreview(i:int, s:ListLabel)
 		{
-			if(i>=fontData.length)
+			if (i >= fontData.length)
 				return null;
 			var font:String = fontData[i]["label"];
 			var fontValue:String = fontData[i]["data"];

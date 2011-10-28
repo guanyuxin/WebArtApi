@@ -39,7 +39,10 @@
 		}
 		function _getStyle(styleName:String):StyleNode
 		{
-			var node:StyleNode=nodes[styleName];
+			var log:Boolean = false;
+			//if (styleName == "borderColor-disabled")
+			//	log = true;
+			var node:StyleNode=nodes[styleName];		//if (log)	trace(styleName+"  "+node);
 			if (node)//if the node exists(defined of cache)
 				return node;
 			if (styleName.indexOf("-") >= 0)//if style has a short name

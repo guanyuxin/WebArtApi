@@ -11,43 +11,48 @@
 		public var scroll:Scroll;
 		var dataCount:int;
 		var contentList:Sprite;
-		var contentBox:Sprite;
+		var contentListMask:Sprite;
 		var tileHeight:int = 20;
 		var tileWidth:int = 80;
 		var windowHeight:int = 100;
 		var elements:Array = new Array();
         var selectedIndex:int=0;
 
-		public function List(dataOrPreview,dataCount,tileWidth=80)
+		public function List(option)
 		{
-			this.dataCount = dataCount;
-			this.tileWidth = tileWidth;
-			contentBox = new Sprite();
-			contentBox.graphics.beginFill(0xffffff);
-			contentBox.graphics.drawRect(0, 0, tileWidth, windowHeight);
-			addChild(contentBox);
+			option.tileWidth ||= 80;
+			option.selectedIndex ||= 0;
+			option.data ||= [];
+			
+			tileWidth = option.tileWidth;
+			contentListMask = new Sprite();
+			contentListMask.graphics.beginFill(0xffffff);
+			contentListMask.graphics.drawRect(0, 0, tileWidth, windowHeight);
+			addChild(contentListMask);
 
 			contentList = new Sprite();
-			contentList.mask = contentBox;
+			contentList.mask = contentListMask;
 			addChild(contentList);
-
-			var border:Sprite = new Sprite;
+			
+			var border:Sprite = new Sprite();
 			border.graphics.lineStyle(1);
-			border.graphics.drawRect(0, 0, tileWidth, dataCount * tileHeight > windowHeight?windowHeight:dataCount * tileHeight);
+			border.graphics.drawRect(0, 0, tileWidth, Math.max(option.data.length * tileHeight , windowHeight));
 			addChild(border);
-			for (var i = 0; i < dataCount; i++ )
+			
+			for (var i = 0; i < option.data.length; i++ )
 			{
-				var dis:ListLabel=new ListLabel(i,dataOrPreview,tileWidth);
+				option.id=i;
+				var dis:ListLabel=new ListLabel(option);
 				dis.y=i*tileHeight;
 				elements.push(dis);
 				dis.addEventListener(MouseEvent.MOUSE_DOWN,listMouseDown);
 				contentList.addChild(dis);
 			}
-			elements[selectedIndex].selected=true;
-			elements[selectedIndex].drawBack(2);
-			if (windowHeight < dataCount * tileHeight)
+			elements[option.selectedIndex].selected=true;
+			elements[option.selectedIndex].drawBack(2);
+			if (windowHeight < option.data.length * tileHeight)
 			{
-				scroll = new Scroll(this,dataCount * tileHeight, windowHeight);
+				scroll = new Scroll(this,option.data.length * tileHeight, windowHeight);
 				scroll.x = tileWidth-scroll.barWidth;
 				scroll.addEventListener(Event.CHANGE, scrolling);
 				addChild(scroll)

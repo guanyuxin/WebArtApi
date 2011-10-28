@@ -34,51 +34,51 @@
 			layoutRight = new GirdLayout(2,DefaultStyle.noPaddingGird);
 			layoutOut = new GirdLayout(1,DefaultStyle.gird);
 
-			enable=new CheckBox("启用");
+			enable=new CheckBox({label:"启用"});
 			layoutLeft.addChild(enable);
 
-			quality=new ComboBox("质量",["低","中","高"],3,0,30);
+			quality=new ComboBox({label:"质量",data:["低","中","高"],tileWidth:30});
 			layoutLeft.addChild(quality);
 			argEditers.push(quality);
 
-			type=new ComboBox("位置",["内部","外部","全部"],3,0,40);
+			type=new ComboBox({label:"位置",data:["内部","外部","全部"],tileWidth:40});
 			layoutLeft.addChild(type);
 			argEditers.push(type);
 
-			knockout=new CheckBox("挖空");
+			knockout=new CheckBox({label:"挖空"});
 			layoutLeft.addChild(knockout);
 			argEditers.push(knockout);
 
-			blurY = new NumberAdjuster("模糊Y",20,0,100);
+			blurY = new NumberAdjuster({label:"模糊Y",value:20});
 			layoutLeft.addChild(blurY);
 			argEditers.push(blurY);
 
-			blurX = new NumberAdjuster("模糊X",20,0,100);
+			blurX = new NumberAdjuster({label:"模糊X",value:20});
 			layoutLeft.addChild(blurX);
 			argEditers.push(blurX);
 			
 			layoutOut.addChild(layoutLeft);
 
-			blurChain=new LinkButton();
+			blurChain=new LinkButton({});
 			layoutOut.addChild(blurChain);
 			argEditers.push(blurChain);
 
-			distance = new NumberAdjuster("距离",20,0,100);
+			distance = new NumberAdjuster({label:"距离",value:20});
 			layoutRight.addChild(distance);
 			argEditers.push(distance);
 
-			angle = new NumberAdjuster("角度",45,0,360);
+			angle = new NumberAdjuster({label:"角度",value:45,maxValue:360});
 			layoutRight.addChild(angle);
 			argEditers.push(angle);
 			
-			shadowColor=new ColorSelector("阴影色");
+			shadowColor=new ColorSelector({label:"阴影色"});
 			layoutRight.addChild(shadowColor);
 			argEditers.push(shadowColor);
 			
-			highlightColor=new ColorSelector("高光色",0xffffff);
+			highlightColor=new ColorSelector({label:"高光色",selectedColor:0xffffff});
 			layoutRight.addChild(highlightColor);
 			argEditers.push(highlightColor);
-			strangth = new NumberAdjuster("强度",10,0,100);
+			strangth = new NumberAdjuster({label:"强度",value:10});
 			layoutRight.addChild(strangth);
 			argEditers.push(strangth);
 

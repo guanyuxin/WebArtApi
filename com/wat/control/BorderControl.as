@@ -28,22 +28,22 @@
 			
 			layoutOut = new GirdLayout(2, DefaultStyle.gird);
 
-			enable=new CheckBox("启用");
+			enable=new CheckBox({label:"启用"});
 			layoutOut.addChild(enable);
 			
-			inner=new CheckBox("内边框");
+			inner=new CheckBox({label:"内边框"});
 			layoutOut.addChild(inner);
 			argEditers.push(inner);
 
-			knockout=new CheckBox("挖空");
+			knockout=new CheckBox({label:"挖空"});
 			layoutOut.addChild(knockout);
 			argEditers.push(knockout);
 
-			borderColor = new ColorSelector("边框颜色",0xffffff);
+			borderColor = new ColorSelector({label:"边框颜色",selectedColor:0xffffff});
 			layoutOut.addChild(borderColor);
 			argEditers.push(borderColor);
 
-			strangth = new NumberAdjuster("强度",20);
+			strangth = new NumberAdjuster({label:"强度",value:20});
 			layoutOut.addChild(strangth);
 			argEditers.push(strangth);
 			

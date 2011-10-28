@@ -55,7 +55,7 @@
 			colorTxt.height = 20;
             head.addChild(colorTxt);
             
-            colorAlpha=new NumberAdjuster("透明度",Math.floor(selectedColorAlpha*100),0,100);
+            colorAlpha=new NumberAdjuster({label:"透明度",value:Math.floor(selectedColorAlpha*100)});
             head.addChild(colorAlpha);
 			out.addChild(head);
 			out.addChild(colorFarm);

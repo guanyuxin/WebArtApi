@@ -12,36 +12,30 @@
 		var rect:Sprite;
 		var w:int = 15;
 		var h:int = 15;
-		var hover:Boolean = false;
-		public var selected:Boolean = false;
-		var _enabled:Boolean = true;
-		public function CheckBox(labelStr:String) 
+		public var selected:Boolean;
+		public function CheckBox(option:Object) 
 		{
-			super(labelStr);
+			super(option);
+			option.enabled ||= true; 
+			option.selected ||= false;
 			rect = new Sprite();
-			addChild(rect);
-			if (label)
-				rect.x = label.width;
-			enabled = true;
-			if(label)
-				label.y = (rect.height - label.height) / 2;
+			comp.addChild(rect);
+			componentFinish();
+			selected = option.selected
+			enabled = option.enabled;
 		}
-		public function set enabled(arg)
+		public function set enabled(val)
 		{
-			enableChange(arg);
-			if (arg)
+			if (val == _enabled)
+				return;
+			setEnabled(val);
+			if (val)
 			{
-				_enabled = true;
 				rect.addEventListener(MouseEvent.CLICK, mouseClick);
-				rect.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				rect.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 			else
 			{
-				_enabled = false;
 				rect.removeEventListener(MouseEvent.CLICK, mouseClick);
-				rect.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				rect.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 			draw();
 		}
@@ -51,17 +45,7 @@
 			draw();
 			dispatchEvent(new Event(Event.CHANGE));
 		}
-		function mouseOver(e:Event)
-		{
-			hover = true;
-			draw();
-		}
-		function mouseOut(e:Event)
-		{
-			hover = false;
-			draw();
-		}
-		public function draw()
+		public override function draw()
 		{
 			var g:Graphics = rect.graphics;
 			g.clear();
@@ -69,7 +53,7 @@
 				g.lineStyle(style.getStyleInt("borderWidth"), style.getStyleUint("borderColor"));
 			else
 			{
-				g.lineStyle(style.getStyleInt("borderWidth"), style.getStyleUint("borderColor-disable"));
+				g.lineStyle(style.getStyleInt("borderWidth"), style.getStyleUint("borderColor-disabled"));
 			}
 			g.beginFill(0, 0);
 			g.drawRect(0, 0, w, h);

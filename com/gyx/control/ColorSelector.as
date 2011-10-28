@@ -15,20 +15,20 @@
 		var panel:ColorPanel;
 		public var selectedColor:uint;
 		public var selectedColorAlpha:Number;
-        public function ColorSelector(labelStr:String="",selectedColor:uint=0,selectedColorAlpha:Number=1)
+        public function ColorSelector(option:Object)
 		{
-			super(labelStr);
-			this.selectedColor = selectedColor;
-			this.selectedColorAlpha = selectedColorAlpha;
+			super(option);
+			
+			option.selectedColor ||= 0;
+			option.selectedColorAlpha ||= 1;
+			
+			selectedColor = option.selectedColor;
+			selectedColorAlpha = option.selectedColorAlpha;
 			
 			colorWell = new ColorWell();
-			addChild(colorWell);
+			comp.addChild(colorWell);
 			
-			if (label){
-				colorWell.x = label.width;
-				label.y = (colorWell.height - label.height) / 2;
-			}
-			
+			componentFinish();
 			enabled = true;
 			
 			panel = new ColorPanel(selectedColor,selectedColorAlpha);
@@ -65,32 +65,32 @@
                 stage.removeEventListener(MouseEvent.MOUSE_DOWN,closePanel);
             }
         }
-		function mouseOver(e:MouseEvent)
+		protected override function mouseOver(e:MouseEvent)
 		{
+			super.mouseOver(e);
 			if (e.buttonDown)
 				return;
 			colorWell.drawBorder(1);
 		}
-		function mouseOut(e:MouseEvent)
+		protected override function mouseOut(e:MouseEvent)
 		{
+			super.mouseOut(e);
 			colorWell.drawBorder(0);
 		}
-		public function set enabled(arg:Boolean)
+		public function set enabled(val:Boolean)
 		{
-			enableChange(arg);
-			if (arg)
+			if (val == _enabled)
+				return;
+			setEnabled(val);
+			if (val)
 			{
 				colorWell.drawColor(selectedColor, selectedColorAlpha);
 				colorWell.addEventListener(MouseEvent.CLICK, openPanel);
-				colorWell.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				colorWell.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 			else
 			{
 				colorWell.drawColor(0x666666, 1);
 				colorWell.removeEventListener(MouseEvent.CLICK, openPanel);
-				colorWell.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				colorWell.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 		}
     }
