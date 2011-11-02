@@ -71,8 +71,6 @@
 		}
 		function draw(active:Boolean)
 		{
-			
-			
 			var y0:int = tabHeight;
 			var y1:int = tabHeight - 2 * corner;
 			var y2:int = 2 * corner;

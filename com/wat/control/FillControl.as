@@ -36,7 +36,7 @@
 			layoutDown = new GirdLayout(1, DefaultStyle.noPaddingGird);
 			layoutOut = new GirdLayout(2, DefaultStyle.gird);
 			
-			typeSelect = new ComboBox({label:"填充方式",data:["单色填充", "渐变填充"],tileWidth:100});
+			typeSelect = new ComboBox({label:"填充方式",data:["单色填充", "渐变填充"]});
 			layoutUp.addChild(typeSelect);
 			argEditers.push(typeSelect);
 			

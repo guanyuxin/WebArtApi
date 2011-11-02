@@ -1,17 +1,14 @@
 ﻿package 
 {
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.display.DisplayObject;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.events.KeyboardEvent;
-	import com.wat.ArtText;
-	import com.wat.RenderArtText;
 	import com.gyx.control.MouseFollower;
 	import com.gyx.control.TabControl;
-	import com.gyx.layout.GirdLayout;
+	import com.wat.ArtText;
 	import com.wat.control.*;
+	import com.wat.RenderArtText;
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.KeyboardEvent;
+	
 	public class WATEdit extends MovieClip
 	{
 		var artText:ArtText;

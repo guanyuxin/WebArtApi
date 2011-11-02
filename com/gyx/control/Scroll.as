@@ -28,7 +28,7 @@ package com.gyx.control
 			scrollBar.graphics.endFill();
 			
 			addChild(scrollBar);
-			scrollBar.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			
 			graphics.lineStyle(1);
 			graphics.beginFill(0x777777);
@@ -39,10 +39,14 @@ package com.gyx.control
 		}
 		function mouseDown(e:MouseEvent)
 		{
+			if(e.target!=scrollBar){
+				setH(mouseY-scrollBarHeight/2);
+			}
 			mouseDownY = this.mouseY;
 			baseY = scrollBar.y;
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
+			
 		}
 		function mouseUp(e:MouseEvent)
 		{

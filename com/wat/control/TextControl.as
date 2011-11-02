@@ -19,7 +19,6 @@
 			this.target = target;
 			this.renderText = renderText;
 			
-			
 			textValue = new TextField();
 			textValue.background = true;
 			textValue.type = "input";

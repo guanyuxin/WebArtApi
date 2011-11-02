@@ -17,6 +17,10 @@
         public var selectedIndex:int;
 		var dataCount:int;
 		var colorTransform:ColorTransform = new ColorTransform();
+		/**
+		 * 
+		 * @param	option selectedIndex(int=0),tileWidth(int=80),data(arr=[]),render(function=default)
+		 */
 		public function ComboBox(option)
 		{
 			super(option);

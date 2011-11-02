@@ -13,6 +13,12 @@
 		var w:int = 15;
 		var h:int = 15;
 		public var selected:Boolean;
+		/**
+		 * 
+		 * @param	option	
+		 * selected:
+		 * enabled,
+		 */
 		public function CheckBox(option:Object) 
 		{
 			super(option);
@@ -20,9 +26,9 @@
 			option.selected ||= false;
 			rect = new Sprite();
 			comp.addChild(rect);
-			componentFinish();
 			selected = option.selected
 			enabled = option.enabled;
+			componentFinish();
 		}
 		public function set enabled(val)
 		{

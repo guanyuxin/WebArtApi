@@ -36,7 +36,7 @@
 			
 			var border:Sprite = new Sprite();
 			border.graphics.lineStyle(1);
-			border.graphics.drawRect(0, 0, tileWidth, Math.max(option.data.length * tileHeight , windowHeight));
+			border.graphics.drawRect(0, 0, tileWidth, Math.min(option.data.length * tileHeight , windowHeight));
 			addChild(border);
 			
 			for (var i = 0; i < option.data.length; i++ )

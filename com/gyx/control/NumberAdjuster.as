@@ -98,11 +98,11 @@
 				else{
 					textShow.backgroundColor = style.getStyleUint("backgroundColor");
 				}
-				graphics.clear();
+				comp.graphics.clear();
 				if (hover)
 				{
-					graphics.lineStyle(style.getStyleInt("hoverboderWidth"),style.getStyleUint("hoverboderColor"));
-					graphics.drawRect( textShow.x-1, textShow.y-1, textShow.width + 2, textShow.height + 2);
+					comp.graphics.lineStyle(style.getStyleInt("hoverboderWidth"),style.getStyleUint("hoverboderColor"));
+					comp.graphics.drawRect( -1, -1, comp.width + 2, comp.height + 2);
 				}
 			}
 		}

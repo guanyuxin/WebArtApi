@@ -1,16 +1,14 @@
 ﻿package com.wat.control
 {
-	import com.gyx.layout.GirdLayout;
-	import flash.events.Event;
-	import flash.display.Sprite;
-	import flash.filters.GlowFilter;
-	import flash.text.TextField;
-	import com.wat.ArtText;
-	import com.gyx.control.NumberAdjuster;
-	import com.gyx.control.ColorSelector;
 	import com.gyx.control.CheckBox;
+	import com.gyx.control.ColorSelector;
+	import com.gyx.control.NumberAdjuster;
 	import com.gyx.layout.GirdLayout;
+	import com.wat.ArtText;
 	import DefaultStyle;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.filters.GlowFilter;
 
 	public class BorderControl extends Sprite
 	{
@@ -27,7 +25,7 @@
 			this.changeFilters = changeFilters;
 			
 			layoutOut = new GirdLayout(2, DefaultStyle.gird);
-
+			
 			enable=new CheckBox({label:"启用"});
 			layoutOut.addChild(enable);
 			

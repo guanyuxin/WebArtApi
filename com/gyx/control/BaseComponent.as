@@ -10,9 +10,12 @@
 		protected var label:Label;
 		protected var comp:Sprite;
 		var style:BaseStyle;
-		var _enabled:Boolean = true;
+		var _enabled:Boolean;
 		var hover:Boolean = false;
-		
+		/**
+		 * 
+		 * @param	option style(BaseStyle):Default;	label(Lable):null
+		 */
 		public function BaseComponent(option:Object)
 		{
 			style = option.style || DefaultStyle.componet
@@ -27,18 +30,15 @@
 		
 		protected function componentFinish()
 		{
-			if (label)
-			{
-				comp.x = label.width;
-				label.y = (comp.height - label.height) / 2;
-			}
+			if (!label)
+				return
+			comp.x = label.width;
+			label.y = (comp.height - label.height) / 2;
 		}
 		
 		public function get lableWidth()
 		{
-			if (label != null)
-				return label.width;
-			return 0;
+			return label?label.width:0;
 		}
 		
 		public function setEnabled(val:Boolean)
@@ -78,19 +78,19 @@
 				this.mouseOut(e);
 			}
 		}
-		
+		//to be overrided
 		protected function mouseOver(e:MouseEvent)
 		{
 			hover = true;
 			draw();
 		}
-		
+		//to be overrided
 		protected function mouseOut(e:MouseEvent)
 		{
 			hover = false;
 			draw();
 		}
-		
+		//to be overrided
 		public function draw()
 		{
 		}
