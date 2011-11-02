@@ -8,7 +8,8 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
-	
+	import flash.display.StageScaleMode;
+	import flash.display.StageAlign;
 	public class WATEdit extends MovieClip
 	{
 		var artText:ArtText;
