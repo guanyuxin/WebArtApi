@@ -19,8 +19,8 @@
 		public function WATEdit()
 		{
 			// constructor code
-			//stage.scaleMode = StageScaleMode.NO_SCALE;
-			//stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
 			
 			controlLayer = new Sprite();
 			controlLayer.name = "controlLayer";
