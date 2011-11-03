@@ -2,14 +2,14 @@
 {
 	import flash.display.Sprite;
 
-	public class TabControl extends Sprite
+	public class UTab extends Sprite
 	{
 		var reRender:Function;
 		var reFilter:Function;
 		var tabs:Array = new Array();
 		
         var tabCount:int=0;
-		public function TabControl(reRender:Function,reFilter:Function)
+		public function UTab(reRender:Function,reFilter:Function)
 		{
 			this.reRender = reRender;
 			this.reFilter = reFilter;
@@ -17,7 +17,7 @@
 		}
         public function addPanel(name:String,controll:Sprite)
         {
-            var tp=new TabPage(tabCount,name,controll,tabDown);
+            var tp=new UTabPage(tabCount,name,controll,tabDown);
             tabs.push(tp);
             addChild(tp);
             tabCount++;

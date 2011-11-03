@@ -1,21 +1,21 @@
 ﻿package com.gyx.layout 
 {
-	import com.gyx.control.BaseComponent;
+	import com.gyx.control.UComponent;
 	import flash.display.Sprite;
-	import com.gyx.sytle.BaseStyle;
-	public class GirdLayout extends Sprite
+	import com.gyx.sytle.UStyle;
+	public class UGirdLayout extends Sprite
 	{
 		public var rowCount:int = 1;
 		public var columnCount:int;
 		var columnWidth:Array;
 		var colunmLabelWidth:Array;
 		var rowHeight:Array;
-		var style:BaseStyle;
-		public function GirdLayout(rowCount:int=1,style:BaseStyle=null) 
+		var style:UStyle;
+		public function UGirdLayout(rowCount:int=1,style:UStyle=null) 
 		{
 			this.rowCount = rowCount;
 			if (style == null){
-				style = new BaseStyle(null)
+				style = new UStyle(null)
 				style.setStyle("padding", 0);
 				style.setStyle("break", 0);
 				style.setStyle("borderWidth", "none");
@@ -39,8 +39,8 @@
 			{
 				if (getChildAt(i).visible == false)
 					continue;
-				if (getChildAt(i) is GirdLayout)
-					(getChildAt(i) as GirdLayout).render();
+				if (getChildAt(i) is UGirdLayout)
+					(getChildAt(i) as UGirdLayout).render();
 				var currentColumn:int = Math.floor(i / rowCount);
 				var currentRow:int = i % rowCount;
 				var cw = Math.round(getChildAt(i).width);
@@ -49,9 +49,9 @@
 					columnWidth[currentColumn] = cw;
 				if (rowHeight[currentRow] < ch)
 					rowHeight[currentRow] = ch;
-				if (getChildAt(i) is BaseComponent)
-					if (colunmLabelWidth[currentColumn] < (getChildAt(i) as BaseComponent).lableWidth)
-						colunmLabelWidth[currentColumn] = (getChildAt(i) as BaseComponent).lableWidth;
+				if (getChildAt(i) is UComponent)
+					if (colunmLabelWidth[currentColumn] < (getChildAt(i) as UComponent).lableWidth)
+						colunmLabelWidth[currentColumn] = (getChildAt(i) as UComponent).lableWidth;
 			}
 			//cacluate size
 			var currentX:int = style.getStyleInt("padding-left")+style.getStyleInt("padding-right")+(columnCount-1)*style.getStyleInt("break");
@@ -84,8 +84,8 @@
 				}	
 				getChildAt(i).x = currentX;
 				getChildAt(i).y = currentY;
-				if (getChildAt(i) is BaseComponent)
-					getChildAt(i).x += colunmLabelWidth[currentColumn] - (getChildAt(i) as BaseComponent).lableWidth;
+				if (getChildAt(i) is UComponent)
+					getChildAt(i).x += colunmLabelWidth[currentColumn] - (getChildAt(i) as UComponent).lableWidth;
 				else if (style.getStyleString("alien") == "center") {
 					getChildAt(i).x += (columnWidth[currentColumn] - getChildAt(i).width) / 2;
 				}

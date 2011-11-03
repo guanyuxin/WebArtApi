@@ -4,7 +4,7 @@
 	import flash.display.Graphics;
 	import flash.events.MouseEvent;
 	
-	public class ListLabel extends Sprite
+	public class UListItem extends Sprite
 	{
 		public var front:Sprite;
 		var back:Sprite;
@@ -14,7 +14,7 @@
 		public var w:int=80;
 		public var h:int=20;
 		public var selected:Boolean=false;
-		public function ListLabel(option:Object)
+		public function UListItem(option:Object)
 		{
 			option.id ||= 0;
 			option.tileWidth ||= 80;
@@ -52,9 +52,9 @@
 
 			addChild(front);
 		}
-		public function defaultRender(id:int,target:ListLabel)
+		public function defaultRender(id:int,target:UListItem)
 		{
-			var label:Label = new Label(data[id]);
+			var label:ULabel = new ULabel(data[id]);
 			label.x=(w-label.width)/2;
 			label.y=(h-label.height)/2;
 			front.addChild(label);

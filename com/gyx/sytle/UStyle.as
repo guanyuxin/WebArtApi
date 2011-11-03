@@ -5,11 +5,11 @@
 	 * ...
 	 * @author GYX
 	 */
-	public class BaseStyle 
+	public class UStyle 
 	{
-		var parent:BaseStyle;
+		var parent:UStyle;
 		var nodes = { };
-		public function BaseStyle(parent) 
+		public function UStyle(parent) 
 		{
 			this.parent=parent
 		}
@@ -37,12 +37,12 @@
 		{
 			return _getStyle(styleName).value;
 		}
-		function _getStyle(styleName:String):StyleNode
+		function _getStyle(styleName:String):UStyleNode
 		{
 			var log:Boolean = false;
 			//if (styleName == "borderColor-disabled")
 			//	log = true;
-			var node:StyleNode=nodes[styleName];		//if (log)	trace(styleName+"  "+node);
+			var node:UStyleNode=nodes[styleName];		//if (log)	trace(styleName+"  "+node);
 			if (node)//if the node exists(defined of cache)
 				return node;
 			if (styleName.indexOf("-") >= 0)//if style has a short name
@@ -62,12 +62,12 @@
 				node = parent._getStyle(styleName);
 			if (!node)
 				trace("style ["+styleName+"] not Fond")
-			nodes[styleName] = new StyleNode(node.value,true);
+			nodes[styleName] = new UStyleNode(node.value,true);
 			return node;
 		}
 		public function setStyle(styleName:String, value:Object)
 		{
-			nodes[styleName] = new StyleNode(value, false);
+			nodes[styleName] = new UStyleNode(value, false);
 		}
 	}
 

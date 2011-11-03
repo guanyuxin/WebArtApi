@@ -4,7 +4,7 @@
 	import flash.display.Sprite;
 	import flash.display.Stage;
     import flash.filters.DropShadowFilter;
-	public class MouseFollower
+	public class UMouse
 	{
 		public static const NONE = 0;
 		public static const VERTICAL_DOUBLE_POINTER = 1;
@@ -25,11 +25,11 @@
 			var g:Graphics = mouseFollower.graphics;
 			var offsetX;
 			var offsetY;
-			if (id==MouseFollower.NONE)
+			if (id==UMouse.NONE)
 			{
 				g.clear();
 			}
-			else if (id==MouseFollower.VERTICAL_DOUBLE_POINTER)
+			else if (id==UMouse.VERTICAL_DOUBLE_POINTER)
 			{
 				offsetX = 15;
 				offsetY = 10;
@@ -53,7 +53,7 @@
 				g.lineTo(offsetX+0,offsetY+10);
 				g.lineTo(offsetX+3,offsetY+6);
 			}
-			else if (id == MouseFollower.CROSS_45DEGREE)
+			else if (id == UMouse.CROSS_45DEGREE)
 			{
 				offsetX = 15;
 				offsetY = 15;
@@ -69,7 +69,7 @@
 				g.moveTo(offsetX + 4, offsetY - 4);
 				g.lineTo(offsetX - 4, offsetY + 4);
 			}
-			else if (id == MouseFollower.DOWN_ARROW)
+			else if (id == UMouse.DOWN_ARROW)
 			{
 				offsetX = 20;
 				offsetY = 15;

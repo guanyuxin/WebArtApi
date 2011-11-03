@@ -6,9 +6,9 @@
 	import flash.text.TextField;
 	import flash.events.Event;
 	import flash.events.MouseEvent
-	public class List extends Sprite
+	public class UList extends Sprite
 	{
-		public var scroll:Scroll;
+		public var scroll:UScroll;
 		var dataCount:int;
 		var contentList:Sprite;
 		var contentListMask:Sprite;
@@ -18,7 +18,7 @@
 		var elements:Array = new Array();
         var selectedIndex:int=0;
 
-		public function List(option)
+		public function UList(option)
 		{
 			option.tileWidth ||= 80;
 			option.selectedIndex ||= 0;
@@ -42,7 +42,7 @@
 			for (var i = 0; i < option.data.length; i++ )
 			{
 				option.id=i;
-				var dis:ListLabel=new ListLabel(option);
+				var dis:UListItem=new UListItem(option);
 				dis.y=i*tileHeight;
 				elements.push(dis);
 				dis.addEventListener(MouseEvent.MOUSE_DOWN,listMouseDown);
@@ -52,7 +52,7 @@
 			elements[option.selectedIndex].drawBack(2);
 			if (windowHeight < option.data.length * tileHeight)
 			{
-				scroll = new Scroll(this,option.data.length * tileHeight, windowHeight);
+				scroll = new UScroll(this,option.data.length * tileHeight, windowHeight);
 				scroll.x = tileWidth-scroll.barWidth;
 				scroll.addEventListener(Event.CHANGE, scrolling);
 				addChild(scroll)
@@ -63,7 +63,7 @@
         {
             if(e.currentTarget.id!=selectedIndex)
             {
-                selectByIndex((e.currentTarget as ListLabel).id);    
+                selectByIndex((e.currentTarget as UListItem).id);    
             }
             dispatchEvent(new Event(Event.CHANGE));
         }

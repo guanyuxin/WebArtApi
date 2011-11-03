@@ -1,27 +1,27 @@
 ﻿package com.gyx.control
 {
-	import com.gyx.sytle.BaseStyle;
+	import com.gyx.sytle.UStyle;
 	import DefaultStyle;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
-	public class BaseComponent extends Sprite
+	public class UComponent extends Sprite
 	{
-		protected var label:Label;
+		protected var label:ULabel;
 		protected var comp:Sprite;
-		var style:BaseStyle;
+		var style:UStyle;
 		var _enabled:Boolean;
 		var hover:Boolean = false;
 		/**
 		 * 
-		 * @param	option style(BaseStyle):Default;	label(Lable):null
+		 * @param	option style(UStyle):Default;	label(Lable):null
 		 */
-		public function BaseComponent(option:Object)
+		public function UComponent(option:Object)
 		{
 			style = option.style || DefaultStyle.componet
 			if (option.label)
 			{
-				label = new Label(option.label);
+				label = new ULabel(option.label);
 				addChild(label);
 			}
 			comp = new Sprite();

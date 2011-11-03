@@ -5,15 +5,15 @@
 	import flash.events.MouseEvent;
 	import flash.filters.GlowFilter;
 	import flash.display.Stage;
-	class Slider extends Sprite
+	class USlider extends Sprite
 	{
 		var MAXWidth:int;
 		var dragging:Boolean = false;
 		var selected:Boolean = false;
 		var color:uint;
 		var fixed:Boolean;
-		var father:GradientControl;
-		public function Slider(x:int,color:uint,MAXWidth:int,h:int,fixed:Boolean=false,father:GradientControl=null)
+		var father:UGradientController;
+		public function USlider(x:int,color:uint,MAXWidth:int,h:int,fixed:Boolean=false,father:UGradientController=null)
 		{
 			this.MAXWidth = MAXWidth;
 			this.y = h;
@@ -73,16 +73,16 @@
 			if (newX<0)
 			{
 				newX = -1;
-				MouseFollower.setFollower(MouseFollower.CROSS_45DEGREE);
+				UMouse.setFollower(UMouse.CROSS_45DEGREE);
 			}
 			else if (newX>=MAXWidth)
 			{
 				newX = MAXWidth + 1;
-				MouseFollower.setFollower(MouseFollower.CROSS_45DEGREE);
+				UMouse.setFollower(UMouse.CROSS_45DEGREE);
 			}
 			else
 			{
-				MouseFollower.setFollower(MouseFollower.NONE);
+				UMouse.setFollower(UMouse.NONE);
 			}
 			this.x = newX;
 			father.reDraw();
@@ -105,7 +105,7 @@
 			if (x<0 || x>MAXWidth)
 			{
 				father.del(this);
-				MouseFollower.setFollower(MouseFollower.NONE);
+				UMouse.setFollower(UMouse.NONE);
 			}
 		}
 		public function select()

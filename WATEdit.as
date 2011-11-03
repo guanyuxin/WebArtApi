@@ -1,7 +1,7 @@
 ﻿package 
 {
-	import com.gyx.control.MouseFollower;
-	import com.gyx.control.TabControl;
+	import com.gyx.control.UMouse;
+	import com.gyx.control.UTab;
 	import com.wat.ArtText;
 	import com.wat.control.*;
 	import com.wat.RenderArtText;
@@ -14,8 +14,8 @@
 	{
 		var artText:ArtText;
 		var artTextShowing:RenderArtText;
-		var newMouse:MouseFollower;
-		var tabControl:TabControl;
+		var newMouse:UMouse;
+		var tabControl:UTab;
 		var controlLayer:Sprite;
 		public function WATEdit()
 		{
@@ -27,12 +27,12 @@
 			controlLayer.name = "controlLayer";
 			stage.addChild(controlLayer);
 			
-            MouseFollower.initMouse(stage);
+            UMouse.initMouse(stage);
 			
 			artText = new ArtText(null);
 			artTextShowing = new RenderArtText(artText);
 			controlLayer.addChild(artTextShowing);
-			tabControl = new TabControl(artTextShowing.reRender,changeFilters);
+			tabControl = new UTab(artTextShowing.reRender,changeFilters);
 			controlLayer.addChild(tabControl);
 			var tabInfo=[
 			 {tabText:"文字",control:new TextControl(artText,artTextShowing.reRender)}

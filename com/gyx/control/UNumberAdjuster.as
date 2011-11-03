@@ -8,7 +8,7 @@
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
 	import flash.events.TextEvent;
-	public class NumberAdjuster extends BaseComponent
+	public class UNumberAdjuster extends UComponent
 	{
 		public var value:int;
 		var textShow:TextField;
@@ -21,15 +21,13 @@
 		static const STATUS_INPUTING = 3;
 		var dragging:Boolean=false;
 		var status:int = STATUS_NORMAL;
-		public function NumberAdjuster(option:Object)
+		public function UNumberAdjuster(option:Object)
 		{
 			super(option);
 			option.value ||= 0;
 			option.minValue ||= 0;
 			option.maxValue ||= 100;
 			
-			value = Math.max(option.value, option.minValue);
-			value = Math.min(option.value, option.maxValue);
 			this.minValue = option.minValue;
 			this.maxValue = option.maxValue;
 						
@@ -46,11 +44,12 @@
 			comp.addChild(textShow);
 			componentFinish();
 			textShow.addEventListener(Event.CHANGE, change);
-			enabled = true;
 			setValue(option.value);
+			enabled = true;
 		}
 		public function setValue(v:int)
 		{
+			
 			v = Math.max(v, minValue);
 			v = Math.min(v, maxValue);
             if(v==value)
@@ -92,7 +91,7 @@
 			else {
 				textShow.textColor = style.getStyleUint("labelColor");
 				textShow.borderColor = style.getStyleUint("borderColor");;
-				if (this.status == NumberAdjuster.STATUS_INPUTING) {
+				if (this.status == UNumberAdjuster.STATUS_INPUTING) {
 					textShow.backgroundColor = style.getStyleUint("backgroundColor-selected");
 				}
 				else{
@@ -121,15 +120,15 @@
 			var newValue = mouseDownValue + disp;
 			if (newValue!=value)
 			{
-				status=NumberAdjuster.STATUS_ADJUSTING;
+				status=UNumberAdjuster.STATUS_ADJUSTING;
 				setValue(newValue);
 			}
 		}
 		function mouseDown(e:Event)
 		{
-			if (status == NumberAdjuster.STATUS_NORMAL) {
+			if (status == UNumberAdjuster.STATUS_NORMAL) {
 				dragging = true;
-				status = NumberAdjuster.STATUS_BEFORE_ADJUSTING;
+				status = UNumberAdjuster.STATUS_BEFORE_ADJUSTING;
 				mouseDownValue = value;
 				stage.addEventListener(MouseEvent.MOUSE_UP,mouseUp);
 				stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
@@ -143,24 +142,24 @@
 					textShow.type = TextFieldType.DYNAMIC;
 					textShow.setSelection(0,0);
 					stage.removeEventListener(MouseEvent.MOUSE_DOWN,mouseDownOut);
-					status = NumberAdjuster.STATUS_NORMAL;
+					status = UNumberAdjuster.STATUS_NORMAL;
 					draw()
 				}
 		}
 		function mouseUp(e:Event)
 		{
 			dragging = false;
-			MouseFollower.setFollower(MouseFollower.NONE);
-			if (status==NumberAdjuster.STATUS_ADJUSTING)//finish adjust
+			UMouse.setFollower(UMouse.NONE);
+			if (status==UNumberAdjuster.STATUS_ADJUSTING)//finish adjust
 			{
-				dispatchEvent(new NumberAdjusterEvent(NumberAdjusterEvent.ADJUST_OVER));
-				status = NumberAdjuster.STATUS_NORMAL;
+				dispatchEvent(new UNumberAdjusterEvent(UNumberAdjusterEvent.ADJUST_OVER));
+				status = UNumberAdjuster.STATUS_NORMAL;
 			}
 			else//cilck,start input
 			{
 				textShow.selectable = true;
 				textShow.type = TextFieldType.INPUT;
-				status = NumberAdjuster.STATUS_INPUTING;
+				status = UNumberAdjuster.STATUS_INPUTING;
 				stage.addEventListener(MouseEvent.MOUSE_DOWN,mouseDownOut)
 			}
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE,mouseMove);
@@ -169,17 +168,17 @@
 		}
 		protected override function mouseOver(e:MouseEvent)
 		{
-			if (status!=NumberAdjuster.STATUS_INPUTING)
+			if (status!=UNumberAdjuster.STATUS_INPUTING)
 			{
-				MouseFollower.setFollower(MouseFollower.VERTICAL_DOUBLE_POINTER);
+				UMouse.setFollower(UMouse.VERTICAL_DOUBLE_POINTER);
 			}
 			super.mouseOver(e);
 		}
 		protected override function mouseOut(e:MouseEvent)
 		{
-			if (status!=NumberAdjuster.STATUS_INPUTING && dragging==false)
+			if (status!=UNumberAdjuster.STATUS_INPUTING && dragging==false)
 			{
-				MouseFollower.setFollower(MouseFollower.NONE);
+				UMouse.setFollower(UMouse.NONE);
 			}
 			super.mouseOut(e);
 		}

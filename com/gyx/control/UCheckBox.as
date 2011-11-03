@@ -7,7 +7,7 @@
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 
-	public class CheckBox extends BaseComponent
+	public class UCheckBox extends UComponent
 	{
 		var rect:Sprite;
 		var w:int = 15;
@@ -19,7 +19,7 @@
 		 * selected:
 		 * enabled,
 		 */
-		public function CheckBox(option:Object) 
+		public function UCheckBox(option:Object) 
 		{
 			super(option);
 			option.enabled ||= true; 

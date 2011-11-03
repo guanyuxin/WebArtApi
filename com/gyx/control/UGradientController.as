@@ -9,9 +9,9 @@
 	import flash.geom.Matrix;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
-	import com.gyx.control.Slider;
-	import com.gyx.control.ColorSelector;
-	public class GradientControl extends Sprite
+	import com.gyx.control.USlider;
+	import com.gyx.control.UColorPicker;
+	public class UGradientController extends Sprite
 	{
 		public var ratioArray:Array;
 		public var colorArray:Array;
@@ -21,10 +21,10 @@
 		var gradient_bm:BitmapData;
 		var bm:Bitmap;
 		var sliders:Array=new Array();
-		var colorPicker:ColorSelector;
-		var selectedSlider:Slider = null;
+		var colorPicker:UColorPicker;
+		var selectedSlider:USlider = null;
 		
-		public function GradientControl(colorArray:Array,ratioArray:Array)
+		public function UGradientController(colorArray:Array,ratioArray:Array)
 		{
 			this.ratioArray = ratioArray;
 			this.colorArray = colorArray;
@@ -36,10 +36,10 @@
 			addChild(gradBox);
 			for (var i=0; i<colorArray.length; i++)
 			{
-				sliders.push(new Slider(ratioArray[i],colorArray[i],w,h,i<2,this));
+				sliders.push(new USlider(ratioArray[i],colorArray[i],w,h,i<2,this));
 				addChild(sliders[i]);
 			}
-			colorPicker = new ColorSelector({label:"当前色"});
+			colorPicker = new UColorPicker({label:"当前色"});
 			colorPicker.x = w + 20;
 			addChild(colorPicker);
 			colorPicker.enabled = false;
@@ -94,7 +94,7 @@
 				reDraw();
 			}
 		}
-		public function del(target:Slider)
+		public function del(target:USlider)
 		{
 			//remove all pointer
 			target.kill();
@@ -103,7 +103,7 @@
 			selectedSlider = null;
 			colorPicker.enabled = false;
 		}
-		public function select(target:Slider)
+		public function select(target:USlider)
 		{
 			for (var i=0; i<sliders.length; i++)
 			{
@@ -138,7 +138,7 @@
 			var newR:int=r1+(r2-r1)*(gradBox.mouseX-ratioArray[i-1])/(ratioArray[i]-ratioArray[i-1]);
 			var newG:int=g1+(g2-g1)*(gradBox.mouseX-ratioArray[i-1])/(ratioArray[i]-ratioArray[i-1]);
 			var newB:int=b1+(b2-b1)*(gradBox.mouseX-ratioArray[i-1])/(ratioArray[i]-ratioArray[i-1]);
-			var newSlider = new Slider(gradBox.mouseX,newR * 256 * 256 + newG * 256 + newB,w,h,false,this);
+			var newSlider = new USlider(gradBox.mouseX,newR * 256 * 256 + newG * 256 + newB,w,h,false,this);
 			sliders.push(newSlider);
 			addChild(newSlider);
 		}

@@ -8,12 +8,12 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent
 	import flash.geom.ColorTransform;
-	public class ComboBox extends BaseComponent
+	public class UComboBox extends UComponent
 	{
-		var demo:ListLabel;
+		var demo:UListItem;
         var tileHeight:int = 20;
 		var tileWidth:int = 80;
-        var list:List;
+        var list:UList;
         public var selectedIndex:int;
 		var dataCount:int;
 		var colorTransform:ColorTransform = new ColorTransform();
@@ -21,19 +21,19 @@
 		 * 
 		 * @param	option selectedIndex(int=0),tileWidth(int=80),data(arr=[]),render(function=default)
 		 */
-		public function ComboBox(option)
+		public function UComboBox(option)
 		{
 			super(option);
 			option.selectedIndex ||= 0;
 			option.tileWidth ||= 80;
 			this.tileWidth = option.tileWidth;
 			
-          	demo=new ListLabel(option);
+          	demo=new UListItem(option);
             comp.addChild(demo);
 			componentFinish();
 			
 			selectById(option.selectedIndex);
-            list=new List(option);
+            list=new UList(option);
 			enabled=true;
 			
 			list.addEventListener(Event.CHANGE, changeSelected);
@@ -66,12 +66,12 @@
 		protected override function mouseOver(e:MouseEvent)
 		{
 			super.mouseOver(e);
-			MouseFollower.setFollower(MouseFollower.DOWN_ARROW);
+			UMouse.setFollower(UMouse.DOWN_ARROW);
 		}
 		protected override function mouseOut(e:MouseEvent)
 		{
 			super.mouseOut(e)
-			MouseFollower.setFollower(MouseFollower.NONE);
+			UMouse.setFollower(UMouse.NONE);
 		}
         public function selectById(argId)
         {

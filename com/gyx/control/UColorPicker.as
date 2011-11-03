@@ -1,21 +1,21 @@
 ﻿package com.gyx.control
 {
-	import com.gyx.control.ColorPanel;
-	import com.gyx.control.ColorWell;
+	import com.gyx.control.UColorPanel;
+	import com.gyx.control.UColorWell;
 	import flash.display.Sprite;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
-    public class ColorSelector extends BaseComponent
+    public class UColorPicker extends UComponent
     {
-        var colorPanel:ColorPanel;
-		var colorWell:ColorWell;
-		var panel:ColorPanel;
+        var colorPanel:UColorPanel;
+		var colorWell:UColorWell;
+		var panel:UColorPanel;
 		public var selectedColor:uint;
 		public var selectedColorAlpha:Number;
-        public function ColorSelector(option:Object)
+        public function UColorPicker(option:Object)
 		{
 			super(option);
 			
@@ -25,19 +25,19 @@
 			selectedColor = option.selectedColor;
 			selectedColorAlpha = option.selectedColorAlpha;
 			
-			colorWell = new ColorWell();
+			colorWell = new UColorWell();
 			comp.addChild(colorWell);
 			
 			componentFinish();
 			enabled = true;
 			
-			panel = new ColorPanel(selectedColor,selectedColorAlpha);
-			panel.addEventListener(ColorSelectorEvent.COLOR_CHANGE, colorChange);
-            panel.addEventListener(ColorSelectorEvent.ALPHA_CHANGE, colorChange);
-            panel.addEventListener(ColorSelectorEvent.COLOR_CHANGE, closePanel);
-			panel.addEventListener(NumberAdjusterEvent.ADJUST_OVER, closePanel);
+			panel = new UColorPanel(selectedColor,selectedColorAlpha);
+			panel.addEventListener(UColorPickerEvent.COLOR_CHANGE, colorChange);
+            panel.addEventListener(UColorPickerEvent.ALPHA_CHANGE, colorChange);
+            panel.addEventListener(UColorPickerEvent.COLOR_CHANGE, closePanel);
+			panel.addEventListener(UNumberAdjusterEvent.ADJUST_OVER, closePanel);
 		}
-		function colorChange(e:ColorSelectorEvent)
+		function colorChange(e:UColorPickerEvent)
 		{
 			setColor(panel.selectedColor, panel.selectedColorAlpha);
 			dispatchEvent(new Event(Event.CHANGE));

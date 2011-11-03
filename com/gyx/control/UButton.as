@@ -8,13 +8,13 @@
 	import flash.filters.BevelFilter;
 	import flash.display.Graphics;
 
-	public class Button extends BaseComponent
+	public class UButton extends UComponent
 	{
 		var w=20;
 		var h=20;
 		var rect:Sprite;
 		public var selected:Boolean = false;
-		public function Button(option:Object) 
+		public function UButton(option:Object) 
 		{
 			super(option);
 			option.enabled ||= true;

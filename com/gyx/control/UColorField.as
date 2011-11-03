@@ -1,15 +1,15 @@
-﻿package com.gyx.control
+﻿	package com.gyx.control
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	class ColorField extends Sprite
+	class UColorField extends Sprite
 	{
 		static var w:int=14;
 		static var h:int=14;
 		var selected;
 		var color:uint;
-		public function ColorField(color){
+		public function UColorField(color){
 			this.color=color;
 			setStyle(0);
 		}
@@ -24,11 +24,7 @@
 				graphics.lineStyle(1,0x0099ff);
 				graphics.beginFill(color);
 			}
-			graphics.moveTo(0,0);
-			graphics.lineTo(0,ColorField.h);
-			graphics.lineTo(ColorField.w,ColorField.h);
-			graphics.lineTo(ColorField.w,0);
-			graphics.lineTo(0,0);
+			graphics.drawRect(0, 0, UColorField.w, UColorField.h);
 			graphics.endFill();
 		}
 	}

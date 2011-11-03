@@ -11,9 +11,9 @@ package com.gyx.control
 	 * ...
 	 * @author GYX
 	 */
-	public class Label extends Sprite
+	public class ULabel extends Sprite
 	{
-		public function Label(str:String,font:String="SimSun",size:int=12)
+		public function ULabel(str:String,font:String="SimSun",size:int=12)
 		{
 			var format:ElementFormat = new ElementFormat(new FontDescription(font));
 			format.fontSize = size;

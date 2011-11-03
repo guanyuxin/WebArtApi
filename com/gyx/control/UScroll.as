@@ -3,7 +3,7 @@ package com.gyx.control
 	import flash.display.Sprite;
 	import flash.events.MouseEvent
 	import flash.events.Event;
-	public class  Scroll extends Sprite
+	public class UScroll extends Sprite
 	{
 		var scrollBarHeight:int;
 		var scrollBar:Sprite;
@@ -14,7 +14,7 @@ package com.gyx.control
 		var mouseDownY:int;
 		var baseY:int;
 		var mouseWheelCaptureObject:Sprite;
-		public function Scroll(mouseWheelCaptureObject:Sprite,maxHeigth:int,windowHeight:int)
+		public function UScroll(mouseWheelCaptureObject:Sprite,maxHeigth:int,windowHeight:int)
 		{
 			this.mouseWheelCaptureObject = mouseWheelCaptureObject;
 			this.maxHeigth = maxHeigth;

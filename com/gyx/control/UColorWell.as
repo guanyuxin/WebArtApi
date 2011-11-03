@@ -1,34 +1,34 @@
 ﻿package com.gyx.control
 {
-	import com.gyx.sytle.BaseStyle;
+	import com.gyx.sytle.UStyle;
     import flash.display.Sprite;
-    class ColorWell extends Sprite
+    class UColorWell extends Sprite
     {
         var colorLayer:Sprite;
-		var style:BaseStyle;
+		var style:UStyle;
         static var w:int=30;
         static var h:int=20;
-        public function ColorWell(style=null)
+        public function UColorWell(style=null)
         {
             this.style = style || DefaultStyle.common;
             graphics.beginFill(0xffffff);
-			graphics.drawRect(0,0,ColorWell.w,ColorWell.h);
+			graphics.drawRect(0,0,UColorWell.w,UColorWell.h);
             graphics.endFill();
             
             graphics.beginFill(0xbbbbbb);
-			graphics.drawRect(0,0,ColorWell.w/3,ColorWell.h/2);
+			graphics.drawRect(0,0,UColorWell.w/3,UColorWell.h/2);
             graphics.endFill();
             
             graphics.beginFill(0xbbbbbb);
-            graphics.drawRect(ColorWell.w/3,ColorWell.h/2,ColorWell.w/3,ColorWell.h/2);
+            graphics.drawRect(UColorWell.w/3,UColorWell.h/2,UColorWell.w/3,UColorWell.h/2);
             graphics.endFill();
             
             graphics.beginFill(0xbbbbbb);
-            graphics.drawRect(2*ColorWell.w/3,0,ColorWell.w/3,ColorWell.h/2);
+            graphics.drawRect(2*UColorWell.w/3,0,UColorWell.w/3,UColorWell.h/2);
             graphics.endFill();
 			
             graphics.lineStyle(1);
-			graphics.drawRect(0,0,ColorWell.w,ColorWell.h);
+			graphics.drawRect(0,0,UColorWell.w,UColorWell.h);
 			
             colorLayer=new Sprite();
             addChild(colorLayer)
@@ -37,7 +37,7 @@
         {
             colorLayer.graphics.clear();
             colorLayer.graphics.beginFill(color,alpha);
-            colorLayer.graphics.drawRect(0,0,ColorWell.w,ColorWell.h);
+            colorLayer.graphics.drawRect(0,0,UColorWell.w,UColorWell.h);
             colorLayer.graphics.endFill();
 			drawBorder(0);
         }
@@ -47,7 +47,7 @@
 				colorLayer.graphics.lineStyle(1);
 			else if (type == 1)
 				colorLayer.graphics.lineStyle(1,0x44aaff);
-			colorLayer.graphics.drawRect(0,0,ColorWell.w,ColorWell.h);
+			colorLayer.graphics.drawRect(0,0,UColorWell.w,UColorWell.h);
 		}
     }
 }

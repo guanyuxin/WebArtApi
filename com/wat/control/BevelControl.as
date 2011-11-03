@@ -5,80 +5,80 @@
 	import flash.events.Event;
 	import flash.display.Sprite;
 	import flash.filters.BitmapFilterType;
-	import com.gyx.control.LinkButton;
-	import com.gyx.control.NumberAdjuster;
-	import com.gyx.control.ColorSelector;
-	import com.gyx.control.CheckBox;
+	import com.gyx.control.ULinkButton;
+	import com.gyx.control.UNumberAdjuster;
+	import com.gyx.control.UColorPicker;
+	import com.gyx.control.UCheckBox;
 	import flash.text.TextField;
-	import com.gyx.control.ComboBox;
-	import com.gyx.layout.GirdLayout;
+	import com.gyx.control.UComboBox;
+	import com.gyx.layout.UGirdLayout;
 	import DefaultStyle;
 	public class BevelControl extends Sprite
 	{
 		var argEditers:Array=new Array();
 		var target:ArtText;
 		var changeFilters:Function;
-		var blurY:NumberAdjuster,blurX:NumberAdjuster,distance:NumberAdjuster,angle:NumberAdjuster,strangth:NumberAdjuster;
-		var blurChain:LinkButton;
-		var highlightColor:ColorSelector,shadowColor:ColorSelector;
-		var knockout:CheckBox,enable:CheckBox;
+		var blurY:UNumberAdjuster,blurX:UNumberAdjuster,distance:UNumberAdjuster,angle:UNumberAdjuster,strangth:UNumberAdjuster;
+		var blurChain:ULinkButton;
+		var highlightColor:UColorPicker,shadowColor:UColorPicker;
+		var knockout:UCheckBox,enable:UCheckBox;
 		var filterType = [BitmapFilterType.INNER,BitmapFilterType.OUTER,BitmapFilterType.FULL];
-		var quality:ComboBox, type:ComboBox;
-		var layoutLeft:GirdLayout,layoutRight:GirdLayout,layoutOut:GirdLayout;
+		var quality:UComboBox, type:UComboBox;
+		var layoutLeft:UGirdLayout,layoutRight:UGirdLayout,layoutOut:UGirdLayout;
 		public function BevelControl(target:ArtText,changeFilters:Function)
 		{
 			this.target = target;
 			this.changeFilters = changeFilters;
 			
-			layoutLeft = new GirdLayout(2,DefaultStyle.noPaddingGird);
-			layoutRight = new GirdLayout(2,DefaultStyle.noPaddingGird);
-			layoutOut = new GirdLayout(1,DefaultStyle.gird);
+			layoutLeft = new UGirdLayout(2,DefaultStyle.noPaddingGird);
+			layoutRight = new UGirdLayout(2,DefaultStyle.noPaddingGird);
+			layoutOut = new UGirdLayout(1,DefaultStyle.gird);
 
-			enable=new CheckBox({label:"启用"});
+			enable=new UCheckBox({label:"启用"});
 			layoutLeft.addChild(enable);
 
-			quality=new ComboBox({label:"质量",data:["低","中","高"],tileWidth:30});
+			quality=new UComboBox({label:"质量",data:["低","中","高"],tileWidth:30});
 			layoutLeft.addChild(quality);
 			argEditers.push(quality);
 
-			type=new ComboBox({label:"位置",data:["内部","外部","全部"],tileWidth:40});
+			type=new UComboBox({label:"位置",data:["内部","外部","全部"],tileWidth:40});
 			layoutLeft.addChild(type);
 			argEditers.push(type);
 
-			knockout=new CheckBox({label:"挖空"});
+			knockout=new UCheckBox({label:"挖空"});
 			layoutLeft.addChild(knockout);
 			argEditers.push(knockout);
 
-			blurY = new NumberAdjuster({label:"模糊Y",value:20});
+			blurY = new UNumberAdjuster({label:"模糊Y",value:20});
 			layoutLeft.addChild(blurY);
 			argEditers.push(blurY);
 
-			blurX = new NumberAdjuster({label:"模糊X",value:20});
+			blurX = new UNumberAdjuster({label:"模糊X",value:20});
 			layoutLeft.addChild(blurX);
 			argEditers.push(blurX);
 			
 			layoutOut.addChild(layoutLeft);
 
-			blurChain=new LinkButton({});
+			blurChain=new ULinkButton({});
 			layoutOut.addChild(blurChain);
 			argEditers.push(blurChain);
 
-			distance = new NumberAdjuster({label:"距离",value:20});
+			distance = new UNumberAdjuster({label:"距离",value:20});
 			layoutRight.addChild(distance);
 			argEditers.push(distance);
 
-			angle = new NumberAdjuster({label:"角度",value:45,maxValue:360});
+			angle = new UNumberAdjuster({label:"角度",value:45,maxValue:360});
 			layoutRight.addChild(angle);
 			argEditers.push(angle);
 			
-			shadowColor=new ColorSelector({label:"阴影色"});
+			shadowColor=new UColorPicker({label:"阴影色"});
 			layoutRight.addChild(shadowColor);
 			argEditers.push(shadowColor);
 			
-			highlightColor=new ColorSelector({label:"高光色",selectedColor:0xffffff});
+			highlightColor=new UColorPicker({label:"高光色",selectedColor:0xffffff});
 			layoutRight.addChild(highlightColor);
 			argEditers.push(highlightColor);
-			strangth = new NumberAdjuster({label:"强度",value:10});
+			strangth = new UNumberAdjuster({label:"强度",value:10});
 			layoutRight.addChild(strangth);
 			argEditers.push(strangth);
 

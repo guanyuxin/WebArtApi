@@ -3,9 +3,9 @@
 	import flash.display.Graphics;
 	import flash.events.Event;
 	
-	public class LinkButton extends BaseComponent
+	public class ULinkButton extends UComponent
 	{
-		var button:CheckBox;
+		var button:UCheckBox;
 		public var selected:Boolean;
 		var w:int;
 		var h:int;
@@ -14,7 +14,7 @@
 		 * @param checked
 		 * Boolean=truedfdf
 		 */
-		public function LinkButton(option:Object)
+		public function ULinkButton(option:Object)
 		{
 			super(option);
 			
@@ -25,7 +25,7 @@
 			
 			this.w = option.w;
 			this.h = option.h;
-			button = new CheckBox({selected:option.checked,enabled:option.enabled});
+			button = new UCheckBox({selected:option.checked,enabled:option.enabled});
 			button.x = this.w;
 			button.y = this.h;
 			addChild(button);

@@ -6,23 +6,23 @@
 	import flash.filters.DropShadowFilter;
 	import flash.display.GradientType;
 	import flash.geom.Matrix;
-	import com.gyx.sytle.BaseStyle;
+	import com.gyx.sytle.UStyle;
 	import DefaultStyle;
-	public class TabPage extends Sprite
+	public class UTabPage extends Sprite
 	{
 		var controll:Sprite;
 		var tabName:String;
 		var id:int;
 		var callback:Function;
-		var label:Label;
-		var style:BaseStyle;
+		var label:ULabel;
+		var style:UStyle;
 		var tabWidth:int;
 		var tabHeight:int;
 		var tabSlopeWidth:int;
 		var corner:int;
 		var pageWidth:int;
 		var pageHeight:int;
-		public function TabPage(id:int, tabName:String, controll:Sprite, callback:Function, styleArg:BaseStyle = null)
+		public function UTabPage(id:int, tabName:String, controll:Sprite, callback:Function, styleArg:UStyle = null)
 		{
 			if (styleArg == null)
 			{
@@ -46,7 +46,7 @@
 			this.callback = callback;
 			this.addChild(controll);
 
-			label = new Label(tabName);
+			label = new ULabel(tabName);
 			label.x = id * (tabWidth + tabSlopeWidth) + 10 + tabSlopeWidth + (tabWidth - label.width) / 2;
 			label.y = (tabHeight - label.height) / 2;
 			addChild(label);

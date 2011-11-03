@@ -1,9 +1,9 @@
 ﻿package com.wat.control
 {
-	import com.gyx.control.CheckBox;
-	import com.gyx.control.ColorSelector;
-	import com.gyx.control.NumberAdjuster;
-	import com.gyx.layout.GirdLayout;
+	import com.gyx.control.UCheckBox;
+	import com.gyx.control.UColorPicker;
+	import com.gyx.control.UNumberAdjuster;
+	import com.gyx.layout.UGirdLayout;
 	import com.wat.ArtText;
 	import DefaultStyle;
 	import flash.display.Sprite;
@@ -14,34 +14,34 @@
 	{
 		var target:ArtText;
 		var changeFilters:Function;
-		var strangth:NumberAdjuster;
-		var enable,inner,knockout:CheckBox;
-		var borderColor:ColorSelector;
+		var strangth:UNumberAdjuster;
+		var enable,inner,knockout:UCheckBox;
+		var borderColor:UColorPicker;
 		var argEditers:Array = [];
-		var layoutOut:GirdLayout;
+		var layoutOut:UGirdLayout;
 		public function BorderControl(target:ArtText,changeFilters:Function)
 		{
 			this.target = target;
 			this.changeFilters = changeFilters;
 			
-			layoutOut = new GirdLayout(2, DefaultStyle.gird);
+			layoutOut = new UGirdLayout(2, DefaultStyle.gird);
 			
-			enable=new CheckBox({label:"启用"});
+			enable=new UCheckBox({label:"启用"});
 			layoutOut.addChild(enable);
 			
-			inner=new CheckBox({label:"内边框"});
+			inner=new UCheckBox({label:"内边框"});
 			layoutOut.addChild(inner);
 			argEditers.push(inner);
 
-			knockout=new CheckBox({label:"挖空"});
+			knockout=new UCheckBox({label:"挖空"});
 			layoutOut.addChild(knockout);
 			argEditers.push(knockout);
 
-			borderColor = new ColorSelector({label:"边框颜色",selectedColor:0xffffff});
+			borderColor = new UColorPicker({label:"边框颜色",selectedColor:0xffffff});
 			layoutOut.addChild(borderColor);
 			argEditers.push(borderColor);
 
-			strangth = new NumberAdjuster({label:"强度",value:20});
+			strangth = new UNumberAdjuster({label:"强度",value:20});
 			layoutOut.addChild(strangth);
 			argEditers.push(strangth);
 			

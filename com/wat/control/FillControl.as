@@ -1,12 +1,12 @@
 ﻿package com.wat.control
 {
-	import com.gyx.control.Button;
-	import com.gyx.control.ColorSelector;
-	import com.gyx.control.ComboBox;
-	import com.gyx.control.GradientControl;
-	import com.gyx.control.ListLabel;
-	import com.gyx.control.NumberAdjuster;
-	import com.gyx.layout.GirdLayout;
+	import com.gyx.control.UButton;
+	import com.gyx.control.UColorPicker;
+	import com.gyx.control.UComboBox;
+	import com.gyx.control.UGradientController;
+	import com.gyx.control.UListItem;
+	import com.gyx.control.UNumberAdjuster;
+	import com.gyx.layout.UGirdLayout;
 	import com.wat.ArtText;
 	import DefaultStyle;
 	import flash.display.Sprite;
@@ -16,55 +16,55 @@
 	
 	public class FillControl extends Sprite
 	{
-		var gradientControl:GradientControl;
-		var simpleColorPicker:ColorSelector;
-		var typeSelect:ComboBox, textFont:ComboBox;
+		var gradientControl:UGradientController;
+		var simpleColorPicker:UColorPicker;
+		var typeSelect:UComboBox, textFont:UComboBox;
 		var target:ArtText;
-		var textSize:NumberAdjuster, textSpacing:NumberAdjuster;
+		var textSize:UNumberAdjuster, textSpacing:UNumberAdjuster;
 		var renderText:Function;
-		var italic:Button, bold:Button;
+		var italic:UButton, bold:UButton;
 		var fontData:Array = [{label: "宋体", data: "SimSun"}, {label: "黑体", data: "SimHei"}, {label: "华文细黑", data: "STXihei"}, {label: "楷体", data: "KaiTi"}, {label: "隶书", data: "LiSu"}, {label: "华文行楷", data: "STXingkai"}, {label: "幼圆", data: "YouYuan"}, {label: "方正舒体", data: "FZShuTi"}, {label: "方正姚体", data: "FZYaoti"}, {label: "华文琥珀", data: "STHupo"}, {label: "华文彩云", data: "STCaiyun"}, {label: "Arial", data: "Arial"}, {label: "Comic Sans MS", data: "Comic Sans MS"}, {label: "Georgia", data: "Georgia"}, {label: "Impact", data: "Impact"}, {label: "Verdana", data: "Verdana"}, {label: "Time News Roman", data: "Time News Roman"}, {label: "Courier New", data: "Courier New"}, {label: "Hei", data: "Hei"}, {label: "Monaco", data: "Monaco"}, {label: "simhei", data: "simhei"}];
 		var argEditers:Array = [];
-		var layoutUp:GirdLayout, layoutDown:GirdLayout, layoutOut:GirdLayout;
+		var layoutUp:UGirdLayout, layoutDown:UGirdLayout, layoutOut:UGirdLayout;
 		
 		public function FillControl(target:ArtText, renderText:Function)
 		{
 			this.target = target;
 			this.renderText = renderText;
 			
-			layoutUp = new GirdLayout(1, DefaultStyle.noPaddingGird);
-			layoutDown = new GirdLayout(1, DefaultStyle.noPaddingGird);
-			layoutOut = new GirdLayout(2, DefaultStyle.gird);
+			layoutUp = new UGirdLayout(1, DefaultStyle.noPaddingGird);
+			layoutDown = new UGirdLayout(1, DefaultStyle.noPaddingGird);
+			layoutOut = new UGirdLayout(2, DefaultStyle.gird);
 			
-			typeSelect = new ComboBox({label:"填充方式",data:["单色填充", "渐变填充"]});
+			typeSelect = new UComboBox({label:"填充方式",data:["单色填充", "渐变填充"]});
 			layoutUp.addChild(typeSelect);
 			argEditers.push(typeSelect);
 			
-			textFont = new ComboBox({label:"字体", render:createFontPreview, data:fontData,tileWidth:100});
+			textFont = new UComboBox({label:"字体", render:createFontPreview, data:fontData,tileWidth:100});
 			layoutDown.addChild(textFont);
 			argEditers.push(textFont);
 			
-			italic = new Button({label:"I"});
+			italic = new UButton({label:"I"});
 			layoutDown.addChild(italic);
 			argEditers.push(italic);
 			
-			bold = new Button({label:"B"});
+			bold = new UButton({label:"B"});
 			layoutDown.addChild(bold);
 			argEditers.push(bold);
 			
-			textSize = new NumberAdjuster({label:"字号", value:20,minValue:12});
+			textSize = new UNumberAdjuster({label:"字号", value:20,minValue:12});
 			layoutDown.addChild(textSize);
 			argEditers.push(textSize);
 			
-			textSpacing = new NumberAdjuster({label:"间距",maxValue:20});
+			textSpacing = new UNumberAdjuster({label:"间距",maxValue:20});
 			layoutDown.addChild(textSpacing);
 			argEditers.push(textSpacing);
 			
-			gradientControl = new GradientControl(target.fillGradientColor, target.fillGradientRatios);
+			gradientControl = new UGradientController(target.fillGradientColor, target.fillGradientRatios);
 			layoutUp.addChild(gradientControl);
 			argEditers.push(gradientControl);
 			
-			simpleColorPicker = new ColorSelector({label:"填充色"});
+			simpleColorPicker = new UColorPicker({label:"填充色"});
 			layoutUp.addChild(simpleColorPicker);
 			argEditers.push(simpleColorPicker);
 			
@@ -133,7 +133,7 @@
 			renderText();
 		}
 		
-		function createFontPreview(i:int, s:ListLabel)
+		function createFontPreview(i:int, s:UListItem)
 		{
 			if (i >= fontData.length)
 				return null;
